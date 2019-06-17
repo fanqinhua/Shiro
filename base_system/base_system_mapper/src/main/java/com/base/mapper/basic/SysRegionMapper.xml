@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysRegionMapper" >
+<!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="600"/>
+	    <property name="timeToLiveSeconds" value="3600"/>
+	    <property name="maxEntriesLocalHeap" value="1000"/>
+	    <property name="maxEntriesLocalDisk" value="100000"/>
+	    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+ -->	
+    <resultMap id="RM_SysRegion" type="com.base.mapper.model.SysRegion">
+        <result property="id" column="ID"/>
+        <result property="cname" column="C_NAME"/>
+        <result property="cregionCode" column="C_REGION_CODE"/>
+        <result property="ilevelId" column="I_LEVEL_ID"/>
+        <result property="cpcode" column="C_PCODE"/>
+        <result property="iorder" column="I_ORDER"/>
+        <result property="cstatus" column="C_STATUS"/>
+        <result property="cdesc" column="C_DESC"/>
+	</resultMap>
+	
+	<resultMap id="RM_SysRegionVO" type="com.base.pojo.basic.SysRegionVO" extends="RM_SysRegion" >
+	
+	</resultMap>
+	
+	<sql id="columns">
+	    <![CDATA[
+		ID,C_NAME,C_REGION_CODE,I_LEVEL_ID,C_PCODE,I_ORDER,C_STATUS,C_DESC
+	    ]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)"> AND ID = #{paramBean.id} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cname)"> AND C_NAME = #{paramBean.cname} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cregionCode)"> AND C_REGION_CODE = #{paramBean.cregionCode} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ilevelId)"> AND I_LEVEL_ID = #{paramBean.ilevelId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cpcode)"> AND C_PCODE = #{paramBean.cpcode} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.iorder)"> AND I_ORDER = #{paramBean.iorder} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cstatus)"> AND C_STATUS = #{paramBean.cstatus} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cdesc)"> AND C_DESC = #{paramBean.cdesc} </if>
+	    </where>
+	</sql>
+	
+	<insert id="insert" keyProperty="id">
+        INSERT INTO sys_region (
+         <if test="@Ognl@isNotEmpty(id)">ID,</if>
+         <if test="@Ognl@isNotEmpty(cname)">C_NAME</if>
+         <if test="@Ognl@isNotEmpty(cregionCode)">,C_REGION_CODE</if>
+         <if test="@Ognl@isNotEmpty(ilevelId)">,I_LEVEL_ID</if>
+         <if test="@Ognl@isNotEmpty(cpcode)">,C_PCODE</if>
+         <if test="@Ognl@isNotEmpty(iorder)">,I_ORDER</if>
+         <if test="@Ognl@isNotEmpty(cstatus)">,C_STATUS</if>
+         <if test="@Ognl@isNotEmpty(cdesc)">,C_DESC</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(cname)">#{cname}</if>
+        <if test="@Ognl@isNotEmpty(cregionCode)">,#{cregionCode}</if>
+        <if test="@Ognl@isNotEmpty(ilevelId)">,#{ilevelId}</if>
+        <if test="@Ognl@isNotEmpty(cpcode)">,#{cpcode}</if>
+        <if test="@Ognl@isNotEmpty(iorder)">,#{iorder}</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,#{cstatus}</if>
+        <if test="@Ognl@isNotEmpty(cdesc)">,#{cdesc}</if>
+        )
+	</insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_region (
+            ID,
+            C_NAME
+            ,C_REGION_CODE
+            ,I_LEVEL_ID
+            ,C_PCODE
+            ,I_ORDER
+            ,C_STATUS
+            ,C_DESC
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator="," >
+        (
+            #{entity.id},
+            #{entity.cname}
+            ,#{entity.cregionCode}
+            ,#{entity.ilevelId}
+            ,#{entity.cpcode}
+            ,#{entity.iorder}
+            ,#{entity.cstatus}
+            ,#{entity.cdesc}
+        )
+        </foreach>
+    </insert>
+    
+	<update id="update" >
+      UPDATE sys_region <trim prefix="SET" suffixOverrides=",">
+        <if test="cname != null and cname!=''">
+	        C_NAME = #{cname} ,
+        </if>
+        <if test="cregionCode != null and cregionCode!=''">
+	        C_REGION_CODE = #{cregionCode} ,
+        </if>
+        <if test="ilevelId != null and ilevelId!=''">
+	        I_LEVEL_ID = #{ilevelId} ,
+        </if>
+        <if test="cpcode != null and cpcode!=''">
+	        C_PCODE = #{cpcode} ,
+        </if>
+        <if test="iorder != null and iorder!=''">
+	        I_ORDER = #{iorder} ,
+        </if>
+        <if test="cstatus != null and cstatus!=''">
+	        C_STATUS = #{cstatus} ,
+        </if>
+        <if test="cdesc != null and cdesc!=''">
+	        C_DESC = #{cdesc} ,
+        </if>
+      </trim>
+        WHERE 
+	        ID = #{id}
+	</update>
+
+    <delete id="deleteById">
+    <![CDATA[
+        DELETE FROM sys_region WHERE
+        ID = #{id} 
+    ]]>
+    </delete>
+    
+    <delete id="deleteByIds" >
+        DELETE FROM sys_region WHERE 
+        	ID IN 
+        	<foreach collection="ids" item="id" open="(" close=")" separator="," >#{id} </foreach>
+    </delete>
+    
+    <select id="findById" resultMap="RM_SysRegionVO">
+		SELECT <include refid="columns"></include> 
+	    <![CDATA[
+		    FROM sys_region
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+	</select>
+	
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_region 
+		<include refid="where"/>    
+    </select>
+    
+    <select id="findPage" resultMap="RM_SysRegionVO">
+    	SELECT * FROM sys_region 
+		<include refid="where"/>
+		<!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+			<!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+		<!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY <foreach collection="orderBean.orderList" item="item" separator="," >${item.sortField} ${item.sortType}</foreach>
+        </if>
+    </select>
+    
+    <sql id="findBySql">
+    	SELECT * FROM sys_region 
+		<include refid="where"/>
+    </sql>
+    
+    <select id="findBy" resultMap="RM_SysRegionVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findUniqueBy" resultMap="RM_SysRegionVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+	
+</mapper>
+

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysParamMapper" >
+<!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="600"/>
+	    <property name="timeToLiveSeconds" value="3600"/>
+	    <property name="maxEntriesLocalHeap" value="1000"/>
+	    <property name="maxEntriesLocalDisk" value="100000"/>
+	    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+ -->	
+    <resultMap id="RM_SysParam" type="com.base.mapper.model.SysParam">
+        <result property="id" column="ID"/>
+        <result property="iparamCategoryId" column="I_PARAM_CATEGORY_ID"/>
+        <result property="cname" column="C_NAME"/>
+        <result property="ccode" column="C_CODE"/>
+        <result property="cvalue" column="C_VALUE"/>
+        <result property="curl" column="C_URL"/>
+        <result property="cpic" column="C_PIC"/>
+        <result property="cstatus" column="C_STATUS"/>
+        <result property="cdes" column="C_DES"/>
+        <result property="dcreateTime" column="D_CREATE_TIME"/>
+        <result property="dupdateTime" column="D_UPDATE_TIME"/>
+	</resultMap>
+	
+	<resultMap id="RM_SysParamVO" type="com.base.pojo.basic.SysParamVO" extends="RM_SysParam" >
+	
+	</resultMap>
+	
+	<sql id="columns">
+	    <![CDATA[
+		ID,I_PARAM_CATEGORY_ID,C_NAME,C_CODE,C_VALUE,C_URL,C_PIC,C_STATUS,C_DES,D_CREATE_TIME,D_UPDATE_TIME
+	    ]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)"> AND ID = #{paramBean.id} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.iparamCategoryId)"> AND I_PARAM_CATEGORY_ID = #{paramBean.iparamCategoryId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cname)"> AND C_NAME = #{paramBean.cname} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ccode)"> AND C_CODE = #{paramBean.ccode} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cvalue)"> AND C_VALUE = #{paramBean.cvalue} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.curl)"> AND C_URL = #{paramBean.curl} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cpic)"> AND C_PIC = #{paramBean.cpic} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cstatus)"> AND C_STATUS = #{paramBean.cstatus} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cdes)"> AND C_DES = #{paramBean.cdes} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dcreateTime)"> AND D_CREATE_TIME = #{paramBean.dcreateTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dupdateTime)"> AND D_UPDATE_TIME = #{paramBean.dupdateTime} </if>
+	    </where>
+	</sql>
+	
+	<insert id="insert" keyProperty="id">
+        INSERT INTO sys_param (
+         <if test="@Ognl@isNotEmpty(id)">ID,</if>
+         <if test="@Ognl@isNotEmpty(iparamCategoryId)">I_PARAM_CATEGORY_ID</if>
+         <if test="@Ognl@isNotEmpty(cname)">,C_NAME</if>
+         <if test="@Ognl@isNotEmpty(ccode)">,C_CODE</if>
+         <if test="@Ognl@isNotEmpty(cvalue)">,C_VALUE</if>
+         <if test="@Ognl@isNotEmpty(curl)">,C_URL</if>
+         <if test="@Ognl@isNotEmpty(cpic)">,C_PIC</if>
+         <if test="@Ognl@isNotEmpty(cstatus)">,C_STATUS</if>
+         <if test="@Ognl@isNotEmpty(cdes)">,C_DES</if>
+         <if test="@Ognl@isNotEmpty(dcreateTime)">,D_CREATE_TIME</if>
+         <if test="@Ognl@isNotEmpty(dupdateTime)">,D_UPDATE_TIME</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(iparamCategoryId)">#{iparamCategoryId}</if>
+        <if test="@Ognl@isNotEmpty(cname)">,#{cname}</if>
+        <if test="@Ognl@isNotEmpty(ccode)">,#{ccode}</if>
+        <if test="@Ognl@isNotEmpty(cvalue)">,#{cvalue}</if>
+        <if test="@Ognl@isNotEmpty(curl)">,#{curl}</if>
+        <if test="@Ognl@isNotEmpty(cpic)">,#{cpic}</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,#{cstatus}</if>
+        <if test="@Ognl@isNotEmpty(cdes)">,#{cdes}</if>
+        <if test="@Ognl@isNotEmpty(dcreateTime)">,#{dcreateTime}</if>
+        <if test="@Ognl@isNotEmpty(dupdateTime)">,#{dupdateTime}</if>
+        )
+	</insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_param (
+            ID,
+            I_PARAM_CATEGORY_ID
+            ,C_NAME
+            ,C_CODE
+            ,C_VALUE
+            ,C_URL
+            ,C_PIC
+            ,C_STATUS
+            ,C_DES
+            ,D_CREATE_TIME
+            ,D_UPDATE_TIME
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator="," >
+        (
+            #{entity.id},
+            #{entity.iparamCategoryId}
+            ,#{entity.cname}
+            ,#{entity.ccode}
+            ,#{entity.cvalue}
+            ,#{entity.curl}
+            ,#{entity.cpic}
+            ,#{entity.cstatus}
+            ,#{entity.cdes}
+            ,#{entity.dcreateTime}
+            ,#{entity.dupdateTime}
+        )
+        </foreach>
+    </insert>
+    
+	<update id="update" >
+    UPDATE sys_param <trim prefix="SET" suffixOverrides=",">
+        <if test="iparamCategoryId != null and iparamCategoryId!=''">
+	        I_PARAM_CATEGORY_ID = #{iparamCategoryId} ,
+        </if>
+        <if test="cname != null and cname!=''">
+	        C_NAME = #{cname} ,
+        </if>
+        <if test="ccode != null and ccode!=''">
+	        C_CODE = #{ccode} ,
+        </if>
+        <if test="cvalue != null and cvalue!=''">
+	        C_VALUE = #{cvalue} ,
+        </if>
+        <if test="curl != null and curl!=''">
+	        C_URL = #{curl} ,
+        </if>
+        <if test="cpic != null and cpic!=''">
+	        C_PIC = #{cpic} ,
+        </if>
+        <if test="cstatus != null and cstatus!=''">
+	        C_STATUS = #{cstatus} ,
+        </if>
+        <if test="cdes != null and cdes!=''">
+	        C_DES = #{cdes} ,
+        </if>
+        <if test="dcreateTime != null and dcreateTime!=''">
+	        D_CREATE_TIME = #{dcreateTime} ,
+        </if>
+        <if test="dupdateTime != null and dupdateTime!=''">
+	        D_UPDATE_TIME = #{dupdateTime} ,
+        </if>
+        </trim>
+        WHERE 
+	        ID = #{id}
+	</update>
+
+    <delete id="deleteById">
+    <![CDATA[
+        DELETE FROM sys_param WHERE
+        ID = #{id} 
+    ]]>
+    </delete>
+    
+    <delete id="deleteByIds" >
+        DELETE FROM sys_param WHERE 
+        	ID IN 
+        	<foreach collection="ids" item="id" open="(" close=")" separator="," >#{id} </foreach>
+    </delete>
+    
+    <select id="findById" resultMap="RM_SysParamVO">
+		SELECT <include refid="columns"></include> 
+	    <![CDATA[
+		    FROM sys_param
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+	</select>
+	
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_param 
+		<include refid="where"/>    
+    </select>
+    
+    <select id="findPage" resultMap="RM_SysParamVO">
+    	SELECT * FROM sys_param 
+		<include refid="where"/>
+		<!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+			<!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+		<!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY <foreach collection="orderBean.orderList" item="item" separator="," >${item.sortField} ${item.sortType}</foreach>
+        </if>
+    </select>
+    
+    <sql id="findBySql">
+    	SELECT * FROM sys_param 
+		<include refid="where"/>
+    </sql>
+    
+    <select id="findBy" resultMap="RM_SysParamVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findUniqueBy" resultMap="RM_SysParamVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="getSysParamTable" resultMap="RM_SysParamVO">
+        SELECT * from sys_param
+        <where>
+            <if test="paramCategoryId != null and paramCategoryId !=''"> I_PARAM_CATEGORY_ID = #{paramCategoryId} </if>
+        </where>
+    </select>
+	
+</mapper>
+

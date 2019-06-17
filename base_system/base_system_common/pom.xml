@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>base_system_parent</artifactId>
+        <groupId>com.base.manager</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../base_system_parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>base_system_common</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+
+        <!-- Apache工具组件 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+        </dependency>
+        <!-- Jackson Json处理工具包 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <!-- httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <!-- httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 日志处理 -->
+        <!-- 添加slf4j日志api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+        <!--redis客户端-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+
+
+
+        <!--SpringSide-->
+        <!--<dependency>-->
+            <!--<groupId>org.springside</groupId>-->
+            <!--<artifactId>springside-core</artifactId>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <!--系统包-->
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-framework-provider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-framework-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-framework-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-admin-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-admin-provider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-admin-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-caservice-provider</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-workflow-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-workflow-provider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-workflow-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-support-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-support-provider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-support-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.rmt.core</groupId>
+            <artifactId>rmt-task</artifactId>
+        </dependency>
+
+        <!--jackson-->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+
+</project>

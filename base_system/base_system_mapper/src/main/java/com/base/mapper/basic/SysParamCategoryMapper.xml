@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysParamCategoryMapper" >
+<!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="600"/>
+	    <property name="timeToLiveSeconds" value="3600"/>
+	    <property name="maxEntriesLocalHeap" value="1000"/>
+	    <property name="maxEntriesLocalDisk" value="100000"/>
+	    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+ -->	
+    <resultMap id="RM_SysParamCategory" type="com.base.mapper.model.SysParamCategory">
+        <result property="id" column="ID"/>
+        <result property="ipid" column="I_PID"/>
+        <result property="cname" column="C_NAME"/>
+        <result property="corgId" column="C_ORG_ID"/>
+        <result property="cstatus" column="C_STATUS"/>
+        <result property="corder" column="C_ORDER"/>
+        <result property="cisParent" column="C_IS_PARENT"/>
+        <result property="dcreateTime" column="D_CREATE_TIME"/>
+        <result property="dupdateTime" column="D_UPDATE_TIME"/>
+	</resultMap>
+	
+	<resultMap id="RM_SysParamCategoryVO" type="com.base.pojo.basic.SysParamCategoryVO" extends="RM_SysParamCategory" >
+        <result property="sysOrgVOName" column="ORG_NAME"/>
+	</resultMap>
+	
+	<sql id="columns">
+	    <![CDATA[
+		ID,I_PID,C_NAME,C_ORG_ID,C_STATUS,C_ORDER,C_IS_PARENT,D_CREATE_TIME,D_UPDATE_TIME
+	    ]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)"> AND ID = #{paramBean.id} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ipid)"> AND I_PID = #{paramBean.ipid} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cname)"> AND C_NAME = #{paramBean.cname} </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.corgId)"> AND C_ORG_ID = #{paramBean.corgId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cstatus)"> AND C_STATUS = #{paramBean.cstatus} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.corder)"> AND C_ORDER = #{paramBean.corder} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cisParent)"> AND C_IS_PARENT = #{paramBean.cisParent} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dcreateTime)"> AND D_CREATE_TIME = #{paramBean.dcreateTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dupdateTime)"> AND D_UPDATE_TIME = #{paramBean.dupdateTime} </if>
+	    </where>
+	</sql>
+	
+	<insert id="insert" keyProperty="id">
+        INSERT INTO sys_param_category (
+         <if test="@Ognl@isNotEmpty(id)">ID,</if>
+         <if test="@Ognl@isNotEmpty(ipid)">I_PID</if>
+         <if test="@Ognl@isNotEmpty(cname)">,C_NAME</if>
+        <if test="@Ognl@isNotEmpty(corgId)">,C_ORG_ID</if>
+         <if test="@Ognl@isNotEmpty(cstatus)">,C_STATUS</if>
+         <if test="@Ognl@isNotEmpty(corder)">,C_ORDER</if>
+         <if test="@Ognl@isNotEmpty(cisParent)">,C_IS_PARENT</if>
+         <if test="@Ognl@isNotEmpty(dcreateTime)">,D_CREATE_TIME</if>
+         <if test="@Ognl@isNotEmpty(dupdateTime)">,D_UPDATE_TIME</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(ipid)">#{ipid}</if>
+        <if test="@Ognl@isNotEmpty(cname)">,#{cname}</if>
+        <if test="@Ognl@isNotEmpty(corgId)">,#{corgId}</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,#{cstatus}</if>
+        <if test="@Ognl@isNotEmpty(corder)">,#{corder}</if>
+        <if test="@Ognl@isNotEmpty(cisParent)">,#{cisParent}</if>
+        <if test="@Ognl@isNotEmpty(dcreateTime)">,#{dcreateTime}</if>
+        <if test="@Ognl@isNotEmpty(dupdateTime)">,#{dupdateTime}</if>
+        )
+	</insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_param_category (
+            ID,
+            I_PID
+            ,C_NAME
+            ,C_ORG_ID
+            ,C_STATUS
+            ,C_ORDER
+            ,C_IS_PARENT
+            ,D_CREATE_TIME
+            ,D_UPDATE_TIME
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator="," >
+        (
+            #{entity.id},
+            #{entity.ipid}
+            ,#{entity.cname}
+            ,#{entity.corgId}
+            ,#{entity.cstatus}
+            ,#{entity.corder}
+            ,#{entity.cisParent}
+            ,#{entity.dcreateTime}
+            ,#{entity.dupdateTime}
+        )
+        </foreach>
+    </insert>
+    
+	<update id="update" >
+    UPDATE sys_param_category <trim prefix="SET" suffixOverrides=",">
+        <if test="ipid != null and ipid!=''">
+	        I_PID = #{ipid} ,
+        </if>
+        <if test="cname != null and cname!=''">
+	        C_NAME = #{cname} ,
+        </if>
+        <if test="corgId != null and corgId!=''">
+	        C_ORG_ID = #{corgId} ,
+        </if>
+        <if test="cstatus != null and cstatus!=''">
+	        C_STATUS = #{cstatus} ,
+        </if>
+        <if test="corder != null and corder!=''">
+	        C_ORDER = #{corder} ,
+        </if>
+        <if test="cisParent != null and cisParent!=''">
+	        C_IS_PARENT = #{cisParent} ,
+        </if>
+        <if test="dcreateTime != null and dcreateTime!=''">
+	        D_CREATE_TIME = #{dcreateTime} ,
+        </if>
+        <if test="dupdateTime != null and dupdateTime!=''">
+	        D_UPDATE_TIME = #{dupdateTime} ,
+        </if>
+    </trim>
+        WHERE 
+	        ID = #{id}
+	</update>
+
+    <delete id="deleteById">
+    <![CDATA[
+        DELETE FROM sys_param_category WHERE
+        ID = #{id} 
+    ]]>
+    </delete>
+    
+    <delete id="deleteByIds" >
+        DELETE FROM sys_param_category WHERE 
+        	ID IN 
+        	<foreach collection="ids" item="id" open="(" close=")" separator="," >#{id} </foreach>
+    </delete>
+    
+    <select id="findById" resultMap="RM_SysParamCategoryVO">
+		SELECT <include refid="columns"></include> 
+	    <![CDATA[
+		    FROM sys_param_category
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+	</select>
+	
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_param_category 
+		<include refid="where"/>    
+    </select>
+    
+    <select id="findPage" resultMap="RM_SysParamCategoryVO">
+    	SELECT * FROM sys_param_category 
+		<include refid="where"/>
+		<!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+			<!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+		<!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY <foreach collection="orderBean.orderList" item="item" separator="," >${item.sortField} ${item.sortType}</foreach>
+        </if>
+    </select>
+    
+    <sql id="findBySql">
+    	SELECT * FROM sys_param_category 
+		<include refid="where"/>
+    </sql>
+    
+    <select id="findBy" resultMap="RM_SysParamCategoryVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findUniqueBy" resultMap="RM_SysParamCategoryVO">
+    	<include refid="findBySql"/>
+    </select>
+
+
+    <select id="getParamCategoryList" resultMap="RM_SysParamCategoryVO">
+        SELECT A.*,(
+        SELECT B.C_NAME FROM sys_org B WHERE A.C_ORG_ID = B.ID
+        ) AS ORG_NAME
+        FROM sys_param_category A
+        ORDER BY A.C_ORDER ASC
+    </select>
+	
+</mapper>
+

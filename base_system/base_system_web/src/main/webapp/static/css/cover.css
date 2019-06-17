@@ -1,0 +1,75 @@
+
+
+.layui-form.for_alert {
+  max-width: 100%;
+  padding: 10px;
+  display: none;
+}
+
+label.layui-form-label {
+  width: 86px;
+}
+.layui-input-block {
+  margin-left: 116px;
+  min-height: 36px;
+}
+.popup_panel .layui-layer{
+  width: 50%;
+  min-width: 360px;
+}
+.popup_panel .layui-layer-content {
+  padding: 10px;
+}
+.popup_panel .layui-form{
+  display: none;
+}
+.jq-toast-wrap {
+  z-index: 900000000 !important;
+}
+.jq-toast-single.jq-has-icon {
+  box-sizing: border-box !important;
+}
+/*滚动条样式 开始*/
+.main-layout-side::-webkit-scrollbar
+{
+  width: 2px;
+  height: 2px;
+  /*background-color: #F5F5F5;
+  background:none;*/
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+/*::-webkit-scrollbar-track
+{
+  !*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*!
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  opacity: 0;
+}
+
+!*定义滑块 内阴影+圆角*!
+::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  !*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.6);*!
+  background: rgba(0, 0, 0, 0.31);
+}
+!*定义滚动条交界处*!
+::-webkit-scrollbar-corner{
+  background:none;
+}*/
+/*滚动条样式 结束*/
+/*.el-select {
+  width: 100%;
+}*/
+/*
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: #5fb878;
+}
+.el-select .el-input__inner:focus {
+  border-color: #5fb878;
+}
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
+  color: #5fb878;
+  background-color: #fff;
+}*/

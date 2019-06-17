@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysUserMapper">
+    <!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+            <property name="timeToIdleSeconds" value="600"/>
+            <property name="timeToLiveSeconds" value="3600"/>
+            <property name="maxEntriesLocalHeap" value="1000"/>
+            <property name="maxEntriesLocalDisk" value="100000"/>
+            <property name="memoryStoreEvictionPolicy" value="LRU"/>
+        </cache>
+     -->
+    <resultMap id="RM_SysUser" type="com.base.mapper.model.SysUser">
+        <result property="id" column="ID"/>
+        <result property="cloginName" column="C_LOGIN_NAME"/>
+        <result property="cpassword" column="C_PASSWORD"/>
+        <result property="cname" column="C_NAME"/>
+        <result property="csalt" column="C_SALT"/>
+        <result property="cphone" column="C_PHONE"/>
+        <result property="cemail" column="C_EMAIL"/>
+        <result property="caddress" column="C_ADDRESS"/>
+        <result property="cip" column="C_IP"/>
+        <result property="dlastInTime" column="D_LAST_IN_TIME"/>
+        <result property="dlastOutTime" column="D_LAST_OUT_TIME"/>
+        <result property="dcreateTime" column="D_CREATE_TIME"/>
+        <result property="icreateorId" column="I_CREATEOR_ID"/>
+        <result property="dupdateTime" column="D_UPDATE_TIME"/>
+        <result property="iupdaterId" column="I_UPDATER_ID"/>
+        <result property="cstatus" column="C_STATUS"/>
+        <result property="cidentityNo" column="C_IDENTITY_NO"/>
+        <result property="csex" column="C_SEX"/>
+        <result property="corgId" column="C_ORG_ID"/>
+        <result property="cremark" column="C_REMARK"/>
+        <result property="croleId" column="C_ROLE_ID"/>
+        <result property="ctoken" column="C_TOKEN"/>
+        <result property="cactive" column="C_ACTIVE"/>
+        <result property="ierrloginTimes" column="I_ERR_LOGIN_TIMES"/>
+        <result property="ierrLoginTime" column="D_ERR_LOGIN_TIME"/>
+    </resultMap>
+
+    <resultMap id="RM_SysUserVO" type="com.base.pojo.basic.SysUserVO" extends="RM_SysUser">
+        <result property="sysOrgVOName" column="ORG_NAME"/>
+        <result property="sysRoleVOName" column="ROLE_NAME"/>
+    </resultMap>
+
+    <!--<resultMap id="RM_SysPermissionVO" type="com.base.pojo.bean.SysPermissionBean">-->
+    <!--<result property="key" column="MODULE_SOURCE_KEY"/>-->
+    <!--<result property="code" column="MODULE_CODE"/>-->
+    <!--<result property="oprType" column="MODULE_SOURCE_OPRTYPE"/>-->
+    <!--<result property="type" column="MODULE_SOURCE_TYPE"/>-->
+    <!--</resultMap>-->
+
+    <sql id="columns">
+	    <![CDATA[
+
+		ID,C_LOGIN_NAME,C_PASSWORD,C_NAME,C_SALT,C_PHONE,C_EMAIL,C_ADDRESS,C_IP,D_LAST_IN_TIME,D_LAST_OUT_TIME,D_CREATE_TIME,I_CREATEOR_ID,D_UPDATE_TIME,I_UPDATER_ID,C_STATUS,C_IDENTITY_NO,C_SEX,C_ORG_ID,C_REMARK,C_ROLE_ID,C_TOKEN,C_ACTIVE,I_ERR_LOGIN_TIMES,D_ERR_LOGIN_TIME
+
+        ]]>
+	</sql>
+
+    <sql id="where">
+        <where>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)">AND ID = #{paramBean.id}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cloginName)">AND C_LOGIN_NAME =
+                #{paramBean.cloginName}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cpassword)">AND C_PASSWORD =
+                #{paramBean.cpassword}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cname)">AND C_NAME = #{paramBean.cname}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.csalt)">AND C_SALT = #{paramBean.csalt}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cphone)">AND C_PHONE = #{paramBean.cphone}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cemail)">AND C_EMAIL = #{paramBean.cemail}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.caddress)">AND C_ADDRESS =
+                #{paramBean.caddress}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cip)">AND C_IP = #{paramBean.cip}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dlastInTime)">AND D_LAST_IN_TIME =
+                #{paramBean.dlastInTime}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dlastOutTime)">AND D_LAST_OUT_TIME =
+                #{paramBean.dlastOutTime}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dcreateTime)">AND D_CREATE_TIME =
+                #{paramBean.dcreateTime}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.icreateorId)">AND I_CREATEOR_ID =
+                #{paramBean.icreateorId}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dupdateTime)">AND D_UPDATE_TIME =
+                #{paramBean.dupdateTime}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.iupdaterId)">AND I_UPDATER_ID =
+                #{paramBean.iupdaterId}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cstatus)">AND C_STATUS = #{paramBean.cstatus}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cidentityNo)">AND C_IDENTITY_NO =
+                #{paramBean.cidentityNo}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.csex)">AND C_SEX = #{paramBean.csex}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.corgId)">AND C_ORG_ID = #{paramBean.corgId}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cremark)">AND C_REMARK = #{paramBean.cremark}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.croleId)">AND C_ROLE_ID = #{paramBean.croleId}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ctoken)">AND C_TOKEN = #{paramBean.ctoken}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cactive)">AND C_ACTIVE = #{paramBean.cactive}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ierrloginTimes)">AND I_ERR_LOGIN_TIMES =
+                #{paramBean.ierrloginTimes}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ierrLoginTime)">AND D_ERR_LOGIN_TIME =
+                #{paramBean.ierrLoginTime}
+            </if>
+        </where>
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sys_user (
+        <if test="@Ognl@isNotEmpty(id)">ID,</if>
+        <if test="@Ognl@isNotEmpty(cloginName)">C_LOGIN_NAME</if>
+        <if test="@Ognl@isNotEmpty(cpassword)">,C_PASSWORD</if>
+        <if test="@Ognl@isNotEmpty(cname)">,C_NAME</if>
+        <if test="@Ognl@isNotEmpty(csalt)">,C_SALT</if>
+        <if test="@Ognl@isNotEmpty(cphone)">,C_PHONE</if>
+        <if test="@Ognl@isNotEmpty(cemail)">,C_EMAIL</if>
+        <if test="@Ognl@isNotEmpty(caddress)">,C_ADDRESS</if>
+        <if test="@Ognl@isNotEmpty(cip)">,C_IP</if>
+        <if test="@Ognl@isNotEmpty(dlastInTime)">,D_LAST_IN_TIME</if>
+        <if test="@Ognl@isNotEmpty(dlastOutTime)">,D_LAST_OUT_TIME</if>
+        <if test="@Ognl@isNotEmpty(dcreateTime)">,D_CREATE_TIME</if>
+        <if test="@Ognl@isNotEmpty(icreateorId)">,I_CREATEOR_ID</if>
+        <if test="@Ognl@isNotEmpty(dupdateTime)">,D_UPDATE_TIME</if>
+        <if test="@Ognl@isNotEmpty(iupdaterId)">,I_UPDATER_ID</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,C_STATUS</if>
+        <if test="@Ognl@isNotEmpty(cidentityNo)">,C_IDENTITY_NO</if>
+        <if test="@Ognl@isNotEmpty(csex)">,C_SEX</if>
+        <if test="@Ognl@isNotEmpty(corgId)">,C_ORG_ID</if>
+        <if test="@Ognl@isNotEmpty(cremark)">,C_REMARK</if>
+        <if test="@Ognl@isNotEmpty(croleId)">,C_ROLE_ID</if>
+        <if test="@Ognl@isNotEmpty(ctoken)">,C_TOKEN</if>
+        <if test="@Ognl@isNotEmpty(cactive)">,C_ACTIVE</if>
+        <if test="@Ognl@isNotEmpty(ierrloginTimes)">,I_ERR_LOGIN_TIMES</if>
+        <if test="@Ognl@isNotEmpty(ierrLoginTime)">,D_ERR_LOGIN_TIME</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(cloginName)">#{cloginName}</if>
+        <if test="@Ognl@isNotEmpty(cpassword)">,#{cpassword}</if>
+        <if test="@Ognl@isNotEmpty(cname)">,#{cname}</if>
+        <if test="@Ognl@isNotEmpty(csalt)">,#{csalt}</if>
+        <if test="@Ognl@isNotEmpty(cphone)">,#{cphone}</if>
+        <if test="@Ognl@isNotEmpty(cemail)">,#{cemail}</if>
+        <if test="@Ognl@isNotEmpty(caddress)">,#{caddress}</if>
+        <if test="@Ognl@isNotEmpty(cip)">,#{cip}</if>
+        <if test="@Ognl@isNotEmpty(dlastInTime)">,#{dlastInTime}</if>
+        <if test="@Ognl@isNotEmpty(dlastOutTime)">,#{dlastOutTime}</if>
+        <if test="@Ognl@isNotEmpty(dcreateTime)">,#{dcreateTime}</if>
+        <if test="@Ognl@isNotEmpty(icreateorId)">,#{icreateorId}</if>
+        <if test="@Ognl@isNotEmpty(dupdateTime)">,#{dupdateTime}</if>
+        <if test="@Ognl@isNotEmpty(iupdaterId)">,#{iupdaterId}</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,#{cstatus}</if>
+        <if test="@Ognl@isNotEmpty(cidentityNo)">,#{cidentityNo}</if>
+        <if test="@Ognl@isNotEmpty(csex)">,#{csex}</if>
+        <if test="@Ognl@isNotEmpty(corgId)">,#{corgId}</if>
+        <if test="@Ognl@isNotEmpty(cremark)">,#{cremark}</if>
+        <if test="@Ognl@isNotEmpty(croleId)">,#{croleId}</if>
+        <if test="@Ognl@isNotEmpty(ctoken)">,#{ctoken}</if>
+        <if test="@Ognl@isNotEmpty(cactive)">,#{cactive}</if>
+        <if test="@Ognl@isNotEmpty(ierrloginTimes)">,#{ierrloginTimes}</if>
+        <if test="@Ognl@isNotEmpty(ierrLoginTime)">,#{ierrLoginTime}</if>
+        )
+    </insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_user (
+        ID,
+        C_LOGIN_NAME
+        ,C_PASSWORD
+        ,C_NAME
+        ,C_SALT
+        ,C_PHONE
+        ,C_EMAIL
+        ,C_ADDRESS
+        ,C_IP
+        ,D_LAST_IN_TIME
+        ,D_LAST_OUT_TIME
+        ,D_CREATE_TIME
+        ,I_CREATEOR_ID
+        ,D_UPDATE_TIME
+        ,I_UPDATER_ID
+        ,C_STATUS
+        ,C_IDENTITY_NO
+        ,C_SEX
+        ,C_ORG_ID
+        ,C_REMARK
+        ,C_ROLE_ID
+        ,C_TOKEN
+        ,C_ACTIVE
+        ,I_ERR_LOGIN_TIMES
+        ,D_ERR_LOGIN_TIME
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator=",">
+            (
+            #{entity.id},
+            #{entity.cloginName}
+            ,#{entity.cpassword}
+            ,#{entity.cname}
+            ,#{entity.csalt}
+            ,#{entity.cphone}
+            ,#{entity.cemail}
+            ,#{entity.caddress}
+            ,#{entity.cip}
+            ,#{entity.dlastInTime}
+            ,#{entity.dlastOutTime}
+            ,#{entity.dcreateTime}
+            ,#{entity.icreateorId}
+            ,#{entity.dupdateTime}
+            ,#{entity.iupdaterId}
+            ,#{entity.cstatus}
+            ,#{entity.cidentityNo}
+            ,#{entity.csex}
+            ,#{entity.corgId}
+            ,#{entity.cremark}
+            ,#{entity.croleId}
+            ,#{entity.ctoken}
+            ,#{entity.cactive}
+            ,#{entity.ierrloginTimes}
+            ,#{entity.ierrLoginTime}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE sys_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cloginName != null and cloginName!=''">
+                C_LOGIN_NAME = #{cloginName} ,
+            </if>
+            <if test="cpassword != null and cpassword!=''">
+                C_PASSWORD = #{cpassword} ,
+            </if>
+            <if test="cname != null and cname!=''">
+                C_NAME = #{cname} ,
+            </if>
+            <if test="csalt != null and csalt!=''">
+                C_SALT = #{csalt} ,
+            </if>
+            <if test="cphone != null and cphone!=''">
+                C_PHONE = #{cphone} ,
+            </if>
+            <if test="cemail != null and cemail!=''">
+                C_EMAIL = #{cemail} ,
+            </if>
+            <if test="caddress != null and caddress!=''">
+                C_ADDRESS = #{caddress} ,
+            </if>
+            <if test="cip != null and cip!=''">
+                C_IP = #{cip} ,
+            </if>
+            <if test="dlastInTime != null and dlastInTime!=''">
+                D_LAST_IN_TIME = #{dlastInTime} ,
+            </if>
+            <if test="dlastOutTime != null and dlastOutTime!=''">
+                D_LAST_OUT_TIME = #{dlastOutTime} ,
+            </if>
+            <if test="dcreateTime != null and dcreateTime!=''">
+                D_CREATE_TIME = #{dcreateTime} ,
+            </if>
+            <if test="icreateorId != null and icreateorId!=''">
+                I_CREATEOR_ID = #{icreateorId} ,
+            </if>
+            <if test="dupdateTime != null and dupdateTime!=''">
+                D_UPDATE_TIME = #{dupdateTime} ,
+            </if>
+            <if test="iupdaterId != null and iupdaterId!=''">
+                I_UPDATER_ID = #{iupdaterId} ,
+            </if>
+            <if test="cstatus != null and cstatus!=''">
+                C_STATUS = #{cstatus} ,
+            </if>
+            <if test="cidentityNo != null and cidentityNo!=''">
+                C_IDENTITY_NO = #{cidentityNo} ,
+            </if>
+            <if test="csex != null and csex!=''">
+                C_SEX = #{csex} ,
+            </if>
+            <if test="corgId != null and corgId!=''">
+                C_ORG_ID = #{corgId} ,
+            </if>
+            <if test="cremark != null and cremark!=''">
+                C_REMARK = #{cremark} ,
+            </if>
+            <if test="croleId != null and croleId!=''">
+                C_ROLE_ID = #{croleId} ,
+            </if>
+            <if test="ctoken != null and ctoken!=''">
+                C_TOKEN = #{ctoken} ,
+            </if>
+            <if test="cactive != null and cactive!=''">
+                C_ACTIVE = #{cactive},
+            </if>
+            <if test="ierrloginTimes != null and ierrloginTimes!=''">
+                I_ERR_LOGIN_TIMES = #{ierrloginTimes},
+            </if>
+            <if test="ierrLoginTime != null and ierrLoginTime!=''">
+                D_ERR_LOGIN_TIME = #{ierrLoginTime},
+            </if>
+        </trim>
+        WHERE
+        ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+    <![CDATA[
+
+        DELETE FROM sys_user WHERE
+        ID = #{id}
+
+        ]]>
+    </delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM sys_user WHERE
+        ID IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+    </delete>
+
+    <select id="findById" resultMap="RM_SysUserVO">
+        SELECT
+        <include refid="columns"></include>
+        <![CDATA[
+		    FROM sys_user
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+    </select>
+
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_user
+        <include refid="where"/>
+    </select>
+
+    <select id="findPage" resultMap="RM_SysUserVO">
+        SELECT * FROM sys_user
+        <include refid="where"/>
+        <!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+        <!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+        <!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY
+            <foreach collection="orderBean.orderList" item="item" separator=",">${item.sortField} ${item.sortType}
+            </foreach>
+        </if>
+    </select>
+
+    <sql id="findBySql">
+        SELECT * FROM sys_user
+        <include refid="where"/>
+    </sql>
+
+    <select id="findBy" resultMap="RM_SysUserVO">
+        <include refid="findBySql"/>
+    </select>
+
+    <select id="findUniqueBy" resultMap="RM_SysUserVO">
+        <include refid="findBySql"/>
+    </select>
+
+    <select id="getByCloginName" resultMap="RM_SysUserVO">
+        SELECT * FROM sys_user WHERE C_LOGIN_NAME = #{cloginName}
+    </select>
+
+    <select id="getUserManList" resultMap="RM_SysUserVO" parameterType="java.lang.String">
+        SELECT A.*,(
+        SELECT B.C_NAME FROM sys_role B WHERE B.ID =(SELECT C.I_ROLE_ID FROM sys_user_role C WHERE C.I_USER_ID=A.ID)
+        ) AS ROLE_NAME,(
+        SELECT D.C_NAME FROM sys_org D WHERE A.C_ORG_ID = D.ID
+        ) AS ORG_NAME
+        FROM sys_user A
+        <if test="cname != null and @Ognl@isNotEmpty(cname)">
+            WHERE A.C_NAME like concat('%',#{cname},'%')
+        </if>
+        ORDER BY A.D_CREATE_TIME ASC
+    </select>
+
+    <select id="findRoleNamesByUserId" resultType="java.lang.Integer">
+        SELECT R.ID FROM sys_role R,sys_user_role UR WHERE  R.ID=UR.I_ROLE_ID  AND R.C_STATUS='00'  AND UR.I_USER_ID=#{userId}
+    </select>
+
+    <select id="findPermissionsByUserId" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+        SELECT e.ID AS id,s.C_KEY AS permission
+        FROM sys_role_module e
+        LEFT JOIN sys_module_source s ON e.I_MODULE_SOURCE_ID = s.ID
+        WHERE e.I_ROLE_ID=#{roleId}
+    </select>
+
+    <update id="updateStatusByLoginName">
+        UPDATE sys_user SET C_STATUS=#{status} WHERE C_LOGIN_NAME=#{cloginName}
+    </update>
+</mapper>
+

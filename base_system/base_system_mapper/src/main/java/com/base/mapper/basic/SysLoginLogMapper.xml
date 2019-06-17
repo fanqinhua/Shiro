@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysLoginLogMapper">
+    <!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+            <property name="timeToIdleSeconds" value="600"/>
+            <property name="timeToLiveSeconds" value="3600"/>
+            <property name="maxEntriesLocalHeap" value="1000"/>
+            <property name="maxEntriesLocalDisk" value="100000"/>
+            <property name="memoryStoreEvictionPolicy" value="LRU"/>
+        </cache>
+     -->
+    <resultMap id="RM_SysLoginLog" type="com.base.mapper.model.SysLoginLog">
+        <result property="id" column="ID"/>
+        <result property="iuserId" column="I_USER_ID"/>
+        <result property="cuserLoginName" column="C_USER_LOGIN_NAME"/>
+        <result property="chostIp" column="C_HOST_IP"/>
+        <result property="dloginTime" column="D_LOGIN_TIME"/>
+        <result property="dlogoutTime" column="D_LOGOUT_TIME"/>
+        <result property="cresult" column="C_RESULT"/>
+    </resultMap>
+
+    <resultMap id="RM_SysLoginLogVO" type="com.base.pojo.basic.SysLoginLogVO" extends="RM_SysLoginLog">
+        <result property="startTime" column="START_TIME"/>
+        <result property="endTime" column="END_TIME"/>
+    </resultMap>
+
+    <sql id="columns">
+	    <![CDATA[
+
+
+		ID,I_USER_ID,C_USER_LOGIN_NAME,C_HOST_IP,D_LOGIN_TIME,D_LOGOUT_TIME,C_RESULT
+
+
+        ]]>
+	</sql>
+
+    <sql id="where">
+        <where>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)">AND ID = #{paramBean.id}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.iuserId)">AND I_USER_ID = #{paramBean.iuserId}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cuserLoginName)">AND C_USER_LOGIN_NAME =
+                #{paramBean.cuserLoginName}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.chostIp)">AND C_HOST_IP = #{paramBean.chostIp}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dloginTime)">AND D_LOGIN_TIME =
+                #{paramBean.dloginTime}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dlogoutTime)">AND D_LOGOUT_TIME =
+                #{paramBean.dlogoutTime}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cresult)">AND C_RESULT = #{paramBean.cresult}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.startTime)">AND D_LOGIN_TIME  <![CDATA[>=]]>
+                #{paramBean.startTime}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.endTime)">AND D_LOGIN_TIME  <![CDATA[<=]]>
+                #{paramBean.endTime}
+            </if>
+        </where>
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sys_login_log (
+        <if test="@Ognl@isNotEmpty(id)">ID,</if>
+        <if test="@Ognl@isNotEmpty(iuserId)">I_USER_ID,</if>
+        <if test="@Ognl@isNotEmpty(cuserLoginName)">C_USER_LOGIN_NAME</if>
+        <if test="@Ognl@isNotEmpty(chostIp)">,C_HOST_IP</if>
+        <if test="@Ognl@isNotEmpty(dloginTime)">,D_LOGIN_TIME</if>
+        <if test="@Ognl@isNotEmpty(dlogoutTime)">,D_LOGOUT_TIME</if>
+        <if test="@Ognl@isNotEmpty(cresult)">,C_RESULT</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(iuserId)">#{iuserId}</if>
+        <if test="@Ognl@isNotEmpty(cuserLoginName)">,#{cuserLoginName}</if>
+        <if test="@Ognl@isNotEmpty(chostIp)">,#{chostIp}</if>
+        <if test="@Ognl@isNotEmpty(dloginTime)">,#{dloginTime}</if>
+        <if test="@Ognl@isNotEmpty(dlogoutTime)">,#{dlogoutTime}</if>
+        <if test="@Ognl@isNotEmpty(cresult)">,#{cresult}</if>
+        )
+    </insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_login_log (
+        ID,
+        I_USER_ID,
+        C_USER_LOGIN_NAME
+        ,C_HOST_IP
+        ,D_LOGIN_TIME
+        ,D_LOGOUT_TIME
+        ,C_RESULT
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator=",">
+            (
+            #{entity.id},
+            #{entity.iuserId},
+            #{entity.cuserLoginName}
+            ,#{entity.chostIp}
+            ,#{entity.dloginTime}
+            ,#{entity.dlogoutTime}
+            ,#{entity.cresult}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE sys_login_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="iuserId != null and iuserId!=''">
+                I_USER_ID = #{iuserId} ,
+            </if>
+            <if test="cuserLoginName != null and cuserLoginName!=''">
+                C_USER_LOGIN_NAME = #{cuserLoginName} ,
+            </if>
+            <if test="chostIp != null and chostIp!=''">
+                C_HOST_IP = #{chostIp} ,
+            </if>
+            <if test="dloginTime != null and dloginTime!=''">
+                D_LOGIN_TIME = #{dloginTime} ,
+            </if>
+            <if test="dlogoutTime != null and dlogoutTime!=''">
+                D_LOGOUT_TIME = #{dlogoutTime} ,
+            </if>
+            <if test="cresult != null and cresult!=''">
+                C_RESULT = #{cresult} ,
+            </if>
+        </trim>
+        WHERE
+        ID = #{id}
+
+    </update>
+
+    <delete id="deleteById">
+    <![CDATA[
+
+
+        DELETE FROM sys_login_log WHERE
+        ID = #{id} 
+
+
+        ]]>
+    </delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM sys_login_log WHERE
+        ID IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+    </delete>
+
+    <select id="findById" resultMap="RM_SysLoginLogVO">
+        SELECT
+        <include refid="columns"></include>
+        <![CDATA[
+		    FROM sys_login_log
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+    </select>
+
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_login_log
+        <include refid="where"/>
+    </select>
+
+    <select id="findPage" resultMap="RM_SysLoginLogVO">
+        SELECT * FROM sys_login_log
+        <include refid="where"/>
+        <!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+        <!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+        <!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY
+            <foreach collection="orderBean.orderList" item="item" separator=",">${item.sortField} ${item.sortType}
+            </foreach>
+        </if>
+    </select>
+
+    <sql id="findBySql">
+        SELECT * FROM sys_login_log
+        <include refid="where"/>
+    </sql>
+
+    <select id="findBy" resultMap="RM_SysLoginLogVO">
+        <include refid="findBySql"/>
+    </select>
+
+    <select id="findUniqueBy" resultMap="RM_SysLoginLogVO">
+        <include refid="findBySql"/>
+    </select>
+
+    <select id="getLoginLogList" resultMap="RM_SysLoginLogVO">
+        SELECT * from sys_login_log
+        <where>
+            <if test="cname != null and cname!=''">AND C_USER_LOGIN_NAME LIKE concat(concat('%',#{cname}),'%')
+            </if>
+            <if test="startTime != null and startTime!=''">AND D_LOGIN_TIME  <![CDATA[>=]]>
+                #{startTime}
+            </if>
+            <if test="endTime != null and endTime!=''">AND D_LOGIN_TIME  <![CDATA[<=]]>
+                #{endTime}
+            </if>
+        </where>
+        ORDER BY D_LOGIN_TIME DESC
+    </select>
+
+    <select id="delLogCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) count
+        from sys_login_log
+        where <![CDATA[ D_LOGIN_TIME <= #{date} ]]>
+    </select>
+
+    <delete id="delByDate" parameterType="java.lang.String">
+        delete from sys_login_log
+        where <![CDATA[ D_LOGIN_TIME <= #{date} ]]>
+    </delete>
+
+</mapper>
+

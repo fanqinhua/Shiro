@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysUserRoleMapper" >
+<!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="600"/>
+	    <property name="timeToLiveSeconds" value="3600"/>
+	    <property name="maxEntriesLocalHeap" value="1000"/>
+	    <property name="maxEntriesLocalDisk" value="100000"/>
+	    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+ -->	
+    <resultMap id="RM_SysUserRole" type="com.base.mapper.model.SysUserRole">
+        <result property="id" column="ID"/>
+        <result property="iuserId" column="I_USER_ID"/>
+        <result property="iroleId" column="I_ROLE_ID"/>
+	</resultMap>
+	
+	<resultMap id="RM_SysUserRoleVO" type="com.base.pojo.basic.SysUserRoleVO" extends="RM_SysUserRole" >
+	
+	</resultMap>
+	
+	<sql id="columns">
+	    <![CDATA[
+		ID,I_USER_ID,I_ROLE_ID
+	    ]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)"> AND ID = #{paramBean.id} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.iuserId)"> AND I_USER_ID = #{paramBean.iuserId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.iroleId)"> AND I_ROLE_ID = #{paramBean.iroleId} </if>
+	    </where>
+	</sql>
+	
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sys_user_role (
+         <if test="@Ognl@isNotEmpty(id)">ID,</if>
+         <if test="@Ognl@isNotEmpty(iuserId)">I_USER_ID</if>
+         <if test="@Ognl@isNotEmpty(iroleId)">,I_ROLE_ID</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(iuserId)">#{iuserId}</if>
+        <if test="@Ognl@isNotEmpty(iroleId)">,#{iroleId}</if>
+        )
+	</insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_user_role (
+            ID,
+            I_USER_ID
+            ,I_ROLE_ID
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator="," >
+        (
+            #{entity.id},
+            #{entity.iuserId}
+            ,#{entity.iroleId}
+        )
+        </foreach>
+    </insert>
+    
+	<update id="update" >
+      UPDATE sys_user_role <trim prefix="SET" suffixOverrides=",">
+        <if test="iuserId != null and iuserId!=''">
+	        I_USER_ID = #{iuserId} ,
+        </if>
+        <if test="iroleId != null and iroleId!=''">
+	        I_ROLE_ID = #{iroleId} ,
+        </if>
+        </trim>
+        WHERE 
+	        ID = #{id}
+	</update>
+
+    <delete id="deleteById">
+    <![CDATA[
+        DELETE FROM sys_user_role WHERE
+        ID = #{id} 
+    ]]>
+    </delete>
+    
+    <delete id="deleteByIds" >
+        DELETE FROM sys_user_role WHERE 
+        	ID IN 
+        	<foreach collection="ids" item="id" open="(" close=")" separator="," >#{id} </foreach>
+    </delete>
+    
+    <select id="findById" resultMap="RM_SysUserRoleVO">
+		SELECT <include refid="columns"></include> 
+	    <![CDATA[
+		    FROM sys_user_role
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+	</select>
+	
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_user_role 
+		<include refid="where"/>    
+    </select>
+    
+    <select id="findPage" resultMap="RM_SysUserRoleVO">
+    	SELECT * FROM sys_user_role 
+		<include refid="where"/>
+		<!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+			<!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+		<!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY <foreach collection="orderBean.orderList" item="item" separator="," >${item.sortField} ${item.sortType}</foreach>
+        </if>
+    </select>
+    
+    <sql id="findBySql">
+    	SELECT * FROM sys_user_role 
+		<include refid="where"/>
+    </sql>
+    
+    <select id="findBy" resultMap="RM_SysUserRoleVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findUniqueBy" resultMap="RM_SysUserRoleVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+	
+</mapper>
+

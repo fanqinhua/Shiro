@@ -1,0 +1,39 @@
+<ehcache updateCheck="false" name="shiroCache">
+
+    <diskStore path="java.io.tmpdir" />
+    <!-- maxElementsInMemory：内存中的最大元素-->
+    <!--eternal：一直存在-->
+    <!--timeToIdleSeconds：时间存在-->
+    <!--timeToLiveSeconds：时间活动-->
+    <!--overflowToDisk：从磁盘溢出-->
+    <!--diskPersistent：是否持久存储在磁盘-->
+    <!--diskExpiryThreadIntervalSeconds：磁盘过期读取时间间隔秒数-->
+    <defaultCache
+
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="false"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+    />
+
+    <!-- 登录记录缓存 锁定1分钟 -->
+    <cache name="passwordRetryCache" eternal="false"
+           maxEntriesLocalHeap="2000"
+           timeToIdleSeconds="60" timeToLiveSeconds="60" overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+    <!--并发登陆设置-->
+    <cache name="shiro-kickout-session"
+           eternal="false"
+           maxEntriesLocalHeap="2000"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+</ehcache>

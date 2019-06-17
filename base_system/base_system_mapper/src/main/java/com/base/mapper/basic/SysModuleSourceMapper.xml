@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysModuleSourceMapper">
+    <!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+            <property name="timeToIdleSeconds" value="600"/>
+            <property name="timeToLiveSeconds" value="3600"/>
+            <property name="maxEntriesLocalHeap" value="1000"/>
+            <property name="maxEntriesLocalDisk" value="100000"/>
+            <property name="memoryStoreEvictionPolicy" value="LRU"/>
+        </cache>
+     -->
+    <resultMap id="RM_SysModuleSource" type="com.base.mapper.model.SysModuleSource">
+        <result property="id" column="ID"/>
+        <result property="cmoduleId" column="C_MODULE_ID"/>
+        <result property="coprType" column="C_OPR_TYPE"/>
+        <result property="ctype" column="C_TYPE"/>
+        <result property="cname" column="C_NAME"/>
+        <result property="ckey" column="C_KEY"/>
+        <result property="corder" column="C_ORDER"/>
+        <result property="dcreateTime" column="D_CREATE_TIME"/>
+        <result property="cdesc" column="C_DESC"/>
+    </resultMap>
+
+    <resultMap id="RM_SysModuleSourceVO" type="com.base.pojo.basic.SysModuleSourceVO" extends="RM_SysModuleSource">
+
+    </resultMap>
+
+    <sql id="columns">
+	    <![CDATA[
+
+		ID,C_MODULE_ID,C_OPR_TYPE,C_TYPE,C_NAME,C_KEY,C_ORDER,D_CREATE_TIME,C_DESC
+
+        ]]>
+	</sql>
+
+    <sql id="where">
+        <where>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)">AND ID = #{paramBean.id}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cmoduleId)">AND C_MODULE_ID =
+                #{paramBean.cmoduleId}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.coprType)">AND C_OPR_TYPE =
+                #{paramBean.coprType}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ctype)">AND C_TYPE = #{paramBean.ctype}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cname)">AND C_NAME = #{paramBean.cname}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ckey)">AND C_KEY = #{paramBean.ckey}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.corder)">AND C_ORDER = #{paramBean.corder}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dcreateTime)">AND D_CREATE_TIME =
+                #{paramBean.dcreateTime}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cdesc)">AND C_DESC = #{paramBean.cdesc}</if>
+        </where>
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sys_module_source (
+        <if test="@Ognl@isNotEmpty(id)">ID,</if>
+        <if test="@Ognl@isNotEmpty(cmoduleId)">C_MODULE_ID</if>
+        <if test="@Ognl@isNotEmpty(coprType)">,C_OPR_TYPE</if>
+        <if test="@Ognl@isNotEmpty(ctype)">,C_TYPE</if>
+        <if test="@Ognl@isNotEmpty(cname)">,C_NAME</if>
+        <if test="@Ognl@isNotEmpty(ckey)">,C_KEY</if>
+        <if test="@Ognl@isNotEmpty(corder)">,C_ORDER</if>
+        <if test="@Ognl@isNotEmpty(dcreateTime)">,D_CREATE_TIME</if>
+        <if test="@Ognl@isNotEmpty(cdesc)">,C_DESC</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(cmoduleId)">#{cmoduleId}</if>
+        <if test="@Ognl@isNotEmpty(coprType)">,#{coprType}</if>
+        <if test="@Ognl@isNotEmpty(ctype)">,#{ctype}</if>
+        <if test="@Ognl@isNotEmpty(cname)">,#{cname}</if>
+        <if test="@Ognl@isNotEmpty(ckey)">,#{ckey}</if>
+        <if test="@Ognl@isNotEmpty(corder)">,#{corder}</if>
+        <if test="@Ognl@isNotEmpty(dcreateTime)">,#{dcreateTime}</if>
+        <if test="@Ognl@isNotEmpty(cdesc)">,#{cdesc}</if>
+        )
+    </insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_module_source (
+        ID,
+        C_MODULE_ID
+        ,C_OPR_TYPE
+        ,C_TYPE
+        ,C_NAME
+        ,C_KEY
+        ,C_ORDER
+        ,D_CREATE_TIME
+        ,C_DESC
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator=",">
+            (
+            #{entity.id},
+            #{entity.cmoduleId}
+            ,#{entity.coprType}
+            ,#{entity.ctype}
+            ,#{entity.cname}
+            ,#{entity.ckey}
+            ,#{entity.corder}
+            ,#{entity.dcreateTime}
+            ,#{entity.cdesc}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE sys_module_source
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cmoduleId != null and cmoduleId!=''">
+                C_MODULE_ID = #{cmoduleId} ,
+            </if>
+            <if test="coprType != null and coprType!=''">
+                C_OPR_TYPE = #{coprType} ,
+            </if>
+            <if test="ctype != null and ctype!=''">
+                C_TYPE = #{ctype} ,
+            </if>
+            <if test="cname != null and cname!=''">
+                C_NAME = #{cname} ,
+            </if>
+            <if test="ckey != null and ckey!=''">
+                C_KEY = #{ckey} ,
+            </if>
+            <if test="corder != null and corder!=''">
+                C_ORDER = #{corder} ,
+            </if>
+            <if test="dcreateTime != null and dcreateTime!=''">
+                D_CREATE_TIME = #{dcreateTime} ,
+            </if>
+            <if test="cdesc != null and cdesc!=''">
+                C_DESC = #{cdesc} ,
+            </if>
+        </trim>
+        WHERE
+        ID = #{id}
+
+    </update>
+
+    <delete id="deleteById">
+    <![CDATA[
+
+        DELETE FROM sys_module_source WHERE
+        ID = #{id} 
+
+        ]]>
+    </delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM sys_module_source WHERE
+        ID IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+    </delete>
+
+    <select id="findById" resultMap="RM_SysModuleSourceVO">
+        SELECT
+        <include refid="columns"></include>
+        <![CDATA[
+		    FROM sys_module_source
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+    </select>
+
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_module_source
+        <include refid="where"/>
+    </select>
+
+    <select id="findPage" resultMap="RM_SysModuleSourceVO">
+        SELECT * FROM sys_module_source
+        <include refid="where"/>
+        <!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+        <!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+        <!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY
+            <foreach collection="orderBean.orderList" item="item" separator=",">${item.sortField} ${item.sortType}
+            </foreach>
+        </if>
+    </select>
+
+    <sql id="findBySql">
+        SELECT * FROM sys_module_source
+        <include refid="where"/>
+    </sql>
+
+    <select id="findBy" resultMap="RM_SysModuleSourceVO">
+        <include refid="findBySql"/>
+    </select>
+
+    <select id="findUniqueBy" resultMap="RM_SysModuleSourceVO">
+        <include refid="findBySql"/>
+    </select>
+
+    <select id="getByCkey" resultMap="RM_SysModuleSourceVO" parameterType="java.lang.String">
+	    SELECT * 
+	    <![CDATA[
+	        FROM sys_module_source where C_KEY = #{ckey}
+
+        ]]>
+    </select>
+
+</mapper>
+

@@ -1,0 +1,24 @@
+.color_fff {
+    color: #fff !important;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    background-color: #1c2a35 !important;
+}
+#div_time{
+    line-height:60px ;
+    width: 220px;
+    float: left;
+}
+.weather{
+    line-height: 50px;
+    width: 240px;
+    float: left;
+}
+@media screen and (max-width:1050px){
+    .layui-nav.top_menu .layui-nav-item a{ padding:0 10px; }
+    /*天气信息*/
+    .weather[pc]{ display: none !important; }
+    .sysNotice{ width:100%; }
+    .component{ width:165px; }
+}

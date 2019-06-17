@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysOprLogMapper" >
+<!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="600"/>
+	    <property name="timeToLiveSeconds" value="3600"/>
+	    <property name="maxEntriesLocalHeap" value="1000"/>
+	    <property name="maxEntriesLocalDisk" value="100000"/>
+	    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+ -->	
+    <resultMap id="RM_SysOprLog" type="com.base.mapper.model.SysOprLog">
+        <result property="id" column="ID"/>
+        <result property="imoduleId" column="I_MODULE_ID"/>
+        <result property="coprDetail" column="C_OPR_DETAIL"/>
+        <result property="dcreateTime" column="D_CREATE_TIME"/>
+        <result property="iuserId" column="I_USER_ID"/>
+        <result property="cuserName" column="C_USER_NAME"/>
+        <result property="chostIp" column="C_HOST_IP"/>
+        <result property="cresult" column="C_RESULT"/>
+	</resultMap>
+	
+	<resultMap id="RM_SysOprLogVO" type="com.base.pojo.basic.SysOprLogVO" extends="RM_SysOprLog" >
+	
+	</resultMap>
+	
+	<sql id="columns">
+	    <![CDATA[
+		ID,I_MODULE_ID,C_OPR_DETAIL,D_CREATE_TIME,I_USER_ID,C_USER_NAME,C_HOST_IP,C_RESULT
+	    ]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)"> AND ID = #{paramBean.id} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.imoduleId)"> AND I_MODULE_ID = #{paramBean.imoduleId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.coprDetail)"> AND C_OPR_DETAIL = #{paramBean.coprDetail} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dcreateTime)"> AND D_CREATE_TIME = #{paramBean.dcreateTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.iuserId)"> AND I_USER_ID = #{paramBean.iuserId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cuserName)"> AND C_USER_NAME = #{paramBean.cuserName} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.chostIp)"> AND C_HOST_IP = #{paramBean.chostIp} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cresult)"> AND C_RESULT = #{paramBean.cresult} </if>
+	    </where>
+	</sql>
+	
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sys_opr_log (
+         <if test="@Ognl@isNotEmpty(id)">ID,</if>
+         <if test="@Ognl@isNotEmpty(imoduleId)">I_MODULE_ID,</if>
+         <if test="@Ognl@isNotEmpty(coprDetail)">C_OPR_DETAIL</if>
+         <if test="@Ognl@isNotEmpty(dcreateTime)">,D_CREATE_TIME</if>
+         <if test="@Ognl@isNotEmpty(iuserId)">,I_USER_ID</if>
+         <if test="@Ognl@isNotEmpty(cuserName)">,C_USER_NAME</if>
+         <if test="@Ognl@isNotEmpty(chostIp)">,C_HOST_IP</if>
+         <if test="@Ognl@isNotEmpty(cresult)">,C_RESULT</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(imoduleId)">#{imoduleId},</if>
+        <if test="@Ognl@isNotEmpty(coprDetail)">#{coprDetail}</if>
+        <if test="@Ognl@isNotEmpty(dcreateTime)">,#{dcreateTime}</if>
+        <if test="@Ognl@isNotEmpty(iuserId)">,#{iuserId}</if>
+        <if test="@Ognl@isNotEmpty(cuserName)">,#{cuserName}</if>
+        <if test="@Ognl@isNotEmpty(chostIp)">,#{chostIp}</if>
+        <if test="@Ognl@isNotEmpty(cresult)">,#{cresult}</if>
+        )
+	</insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_opr_log (
+            ID,
+            I_MODULE_ID,
+            C_OPR_DETAIL
+            ,D_CREATE_TIME
+            ,I_USER_ID
+            ,C_USER_NAME
+            ,C_HOST_IP
+            ,C_RESULT
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator="," >
+        (
+            #{entity.id},
+            #{entity.imoduleId},
+            #{entity.coprDetail}
+            ,#{entity.dcreateTime}
+            ,#{entity.iuserId}
+            ,#{entity.cuserName}
+            ,#{entity.chostIp}
+            ,#{entity.cresult}
+        )
+        </foreach>
+    </insert>
+    
+	<update id="update" >
+    UPDATE sys_opr_log <trim prefix="SET" suffixOverrides=",">
+        <if test="imoduleId != null and imoduleId!=''">
+	        I_MODULE_ID = #{imoduleId} ,
+        </if>
+        <if test="coprDetail != null and coprDetail!=''">
+	        C_OPR_DETAIL = #{coprDetail} ,
+        </if>
+        <if test="dcreateTime != null and dcreateTime!=''">
+	        D_CREATE_TIME = #{dcreateTime} ,
+        </if>
+        <if test="iuserId != null and iuserId!=''">
+	        I_USER_ID = #{iuserId} ,
+        </if>
+        <if test="cuserName != null and cuserName!=''">
+	        C_USER_NAME = #{cuserName} ,
+        </if>
+        <if test="chostIp != null and chostIp!=''">
+	        C_HOST_IP = #{chostIp} ,
+        </if>
+        <if test="cresult != null and cresult!=''">
+	        C_RESULT = #{cresult} ,
+        </if>
+    </trim>
+        WHERE 
+	        ID = #{id}
+	</update>
+
+    <delete id="deleteById">
+    <![CDATA[
+        DELETE FROM sys_opr_log WHERE
+        ID = #{id} 
+    ]]>
+    </delete>
+    
+    <delete id="deleteByIds" >
+        DELETE FROM sys_opr_log WHERE 
+        	ID IN 
+        	<foreach collection="ids" item="id" open="(" close=")" separator="," >#{id} </foreach>
+    </delete>
+    
+    <select id="findById" resultMap="RM_SysOprLogVO">
+		SELECT <include refid="columns"></include> 
+	    <![CDATA[
+		    FROM sys_opr_log
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+	</select>
+	
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_opr_log 
+		<include refid="where"/>    
+    </select>
+    
+    <select id="findPage" resultMap="RM_SysOprLogVO">
+    	SELECT * FROM sys_opr_log 
+		<include refid="where"/>
+		<!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+			<!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+		<!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY <foreach collection="orderBean.orderList" item="item" separator="," >${item.sortField} ${item.sortType}</foreach>
+        </if>
+    </select>
+    
+    <sql id="findBySql">
+    	SELECT * FROM sys_opr_log 
+		<include refid="where"/>
+    </sql>
+    
+    <select id="findBy" resultMap="RM_SysOprLogVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findUniqueBy" resultMap="RM_SysOprLogVO">
+    	<include refid="findBySql"/>
+    </select>
+
+    <select id="getOprLogList" resultMap="RM_SysOprLogVO">
+        SELECT * from sys_opr_log
+        <where>
+            <if test="cname != null and cname!=''">AND C_USER_NAME LIKE concat(concat('%',#{cname}),'%')
+            </if>
+            <if test="startTime != null and startTime!=''">AND D_CREATE_TIME  <![CDATA[>=]]>
+                #{startTime}
+            </if>
+            <if test="endTime != null and endTime!=''">AND D_CREATE_TIME  <![CDATA[<=]]>
+                #{endTime}
+            </if>
+        </where>
+        ORDER BY D_CREATE_TIME DESC
+    </select>
+</mapper>
+

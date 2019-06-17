@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysModuleMapper">
+    <!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+            <property name="timeToIdleSeconds" value="600"/>
+            <property name="timeToLiveSeconds" value="3600"/>
+            <property name="maxEntriesLocalHeap" value="1000"/>
+            <property name="maxEntriesLocalDisk" value="100000"/>
+            <property name="memoryStoreEvictionPolicy" value="LRU"/>
+        </cache>
+     -->
+    <resultMap id="RM_SysModule" type="com.base.mapper.model.SysModule">
+        <result property="id" column="ID"/>
+        <result property="ipid" column="I_PID"/>
+        <result property="ccode" column="C_CODE"/>
+        <result property="cname" column="C_NAME"/>
+        <result property="curl" column="C_URL"/>
+        <result property="cicon" column="C_ICON"/>
+        <result property="clevel" column="C_LEVEL"/>
+        <result property="cisLeaf" column="C_IS_LEAF"/>
+        <result property="corer" column="C_ORER"/>
+        <result property="cstatus" column="C_STATUS"/>
+        <result property="cvisable" column="C_VISABLE"/>
+        <result property="cdesc" column="C_DESC"/>
+    </resultMap>
+
+    <resultMap id="RM_SysModuleVO" type="com.base.pojo.basic.SysModuleVO" extends="RM_SysModule">
+
+    </resultMap>
+
+    <sql id="columns">
+	    <![CDATA[
+
+		ID,I_PID,C_CODE,C_NAME,C_URL,C_ICON,C_LEVEL,C_IS_LEAF,C_ORER,C_STATUS,C_VISABLE,C_DESC
+
+        ]]>
+	</sql>
+
+    <sql id="where">
+        <where>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)">AND ID = #{paramBean.id}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ipid)">AND I_PID = #{paramBean.ipid}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ccode)">AND C_CODE = #{paramBean.ccode}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cname)">AND C_NAME = #{paramBean.cname}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.curl)">AND C_URL = #{paramBean.curl}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cicon)">AND C_ICON = #{paramBean.cicon}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.clevel)">AND C_LEVEL = #{paramBean.clevel}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cisLeaf)">AND C_IS_LEAF = #{paramBean.cisLeaf}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.corer)">AND C_ORER = #{paramBean.corer}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cstatus)">AND C_STATUS = #{paramBean.cstatus}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cvisable)">AND C_VISABLE =
+                #{paramBean.cvisable}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cdesc)">AND C_DESC = #{paramBean.cdesc}</if>
+        </where>
+    </sql>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sys_module (
+        <if test="@Ognl@isNotEmpty(id)">ID,</if>
+        <if test="@Ognl@isNotEmpty(ipid)">I_PID</if>
+        <if test="@Ognl@isNotEmpty(ccode)">,C_CODE</if>
+        <if test="@Ognl@isNotEmpty(cname)">,C_NAME</if>
+        <if test="@Ognl@isNotEmpty(curl)">,C_URL</if>
+        <if test="@Ognl@isNotEmpty(cicon)">,C_ICON</if>
+        <if test="@Ognl@isNotEmpty(clevel)">,C_LEVEL</if>
+        <if test="@Ognl@isNotEmpty(cisLeaf)">,C_IS_LEAF</if>
+        <if test="@Ognl@isNotEmpty(corer)">,C_ORER</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,C_STATUS</if>
+        <if test="@Ognl@isNotEmpty(cvisable)">,C_VISABLE</if>
+        <if test="@Ognl@isNotEmpty(cdesc)">,C_DESC</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(ipid)">#{ipid}</if>
+        <if test="@Ognl@isNotEmpty(ccode)">,#{ccode}</if>
+        <if test="@Ognl@isNotEmpty(cname)">,#{cname}</if>
+        <if test="@Ognl@isNotEmpty(curl)">,#{curl}</if>
+        <if test="@Ognl@isNotEmpty(cicon)">,#{cicon}</if>
+        <if test="@Ognl@isNotEmpty(clevel)">,#{clevel}</if>
+        <if test="@Ognl@isNotEmpty(cisLeaf)">,#{cisLeaf}</if>
+        <if test="@Ognl@isNotEmpty(corer)">,#{corer}</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,#{cstatus}</if>
+        <if test="@Ognl@isNotEmpty(cvisable)">,#{cvisable}</if>
+        <if test="@Ognl@isNotEmpty(cdesc)">,#{cdesc}</if>
+        )
+    </insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_module (
+        ID,
+        I_PID
+        ,C_CODE
+        ,C_NAME
+        ,C_URL
+        ,C_ICON
+        ,C_LEVEL
+        ,C_IS_LEAF
+        ,C_ORER
+        ,C_STATUS
+        ,C_VISABLE
+        ,C_DESC
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator=",">
+            (
+            #{entity.id},
+            #{entity.ipid}
+            ,#{entity.ccode}
+            ,#{entity.cname}
+            ,#{entity.curl}
+            ,#{entity.cicon}
+            ,#{entity.clevel}
+            ,#{entity.cisLeaf}
+            ,#{entity.corer}
+            ,#{entity.cstatus}
+            ,#{entity.cvisable}
+            ,#{entity.cdesc}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE sys_module
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ipid!= null and ipid!=''">
+                I_PID = #{ipid} ,
+            </if>
+            <if test="ccode != null and ccode!=''">
+                C_CODE = #{ccode} ,
+            </if>
+            <if test="cname != null and cname!=''">
+                C_NAME = #{cname} ,
+            </if>
+            <if test="curl != null and curl!=''">
+                C_URL = #{curl} ,
+            </if>
+            <if test="cicon != null and cicon!=''">
+                C_ICON = #{cicon} ,
+            </if>
+            <if test="clevel != null and clevel!=''">
+                C_LEVEL = #{clevel} ,
+            </if>
+            <if test="cisLeaf != null and cisLeaf!=''">
+                C_IS_LEAF = #{cisLeaf} ,
+            </if>
+            <if test="corer != null and corer!=''">
+                C_ORER = #{corer} ,
+            </if>
+            <if test="cstatus != null and cstatus!=''">
+                C_STATUS = #{cstatus} ,
+            </if>
+            <if test="cvisable != null and cvisable!=''">
+                C_VISABLE = #{cvisable} ,
+            </if>
+            <if test="cdesc != null and cdesc!=''">
+                C_DESC = #{cdesc} ,
+            </if>
+        </trim>
+        WHERE
+        ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+    <![CDATA[
+
+        DELETE FROM sys_module WHERE
+        ID = #{id} 
+
+        ]]>
+    </delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM sys_module WHERE
+        ID IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+    </delete>
+
+    <select id="findById" resultMap="RM_SysModuleVO">
+        SELECT
+        <include refid="columns"></include>
+        <![CDATA[
+		    FROM sys_module
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+    </select>
+
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_module
+        <include refid="where"/>
+    </select>
+
+    <select id="findPage" resultMap="RM_SysModuleVO">
+        SELECT * FROM sys_module
+        <include refid="where"/>
+        <!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+        <!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+        <!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY
+            <foreach collection="orderBean.orderList" item="item" separator=",">${item.sortField} ${item.sortType}
+            </foreach>
+        </if>
+    </select>
+
+    <sql id="findBySql">
+        SELECT * FROM sys_module
+        <include refid="where"/>
+    </sql>
+
+    <select id="findBy" resultMap="RM_SysModuleVO">
+        <include refid="findBySql"/>
+
+    </select>
+
+    <select id="findUniqueBy" resultMap="RM_SysModuleVO">
+        <include refid="findBySql"/>
+    </select>
+
+    <select id="findByPid" resultMap="RM_SysModuleVO">
+        SELECT A.* FROM sys_module A
+        LEFT JOIN sys_role_module B ON A.ID=B.I_MODULE_ID
+        WHERE A.C_STATUS='00' AND A.C_VISABLE='0'
+        <if test="roles!=null and @Ognl@isNotEmpty(roles)">
+            AND B.I_ROLE_ID IN
+            <foreach collection="roles" item="role" open="(" close=")" separator=",">#{role}</foreach>
+        </if>
+        AND B.I_MODULE_SOURCE_ID IS NULL
+        ORDER BY C_ORER ASC
+    </select>
+
+    <select id="findByOrder" resultMap="RM_SysModuleVO">
+        SELECT * FROM sys_module  ORDER BY C_ORER ASC
+    </select>
+</mapper>
+

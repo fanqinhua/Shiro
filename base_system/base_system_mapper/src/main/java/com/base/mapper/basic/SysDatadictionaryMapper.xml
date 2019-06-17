@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysDatadictionaryMapper">
+    <!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+            <property name="timeToIdleSeconds" value="600"/>
+            <property name="timeToLiveSeconds" value="3600"/>
+            <property name="maxEntriesLocalHeap" value="1000"/>
+            <property name="maxEntriesLocalDisk" value="100000"/>
+            <property name="memoryStoreEvictionPolicy" value="LRU"/>
+        </cache>
+     -->
+    <resultMap id="RM_SysDatadictionary" type="com.base.mapper.model.SysDatadictionary">
+        <result property="id" column="ID"/>
+        <result property="ccode" column="C_CODE"/>
+        <result property="ckey" column="C_KEY"/>
+        <result property="cvalue" column="C_VALUE"/>
+        <result property="cstatus" column="C_STATUS"/>
+        <result property="cdesc" column="C_DESC"/>
+    </resultMap>
+
+    <resultMap id="RM_SysDatadictionaryVO" type="com.base.pojo.basic.SysDatadictionaryVO"
+               extends="RM_SysDatadictionary">
+
+    </resultMap>
+
+    <sql id="columns">
+	    <![CDATA[
+
+		ID,C_CODE,C_KEY,C_VALUE,C_STATUS,C_DESC
+
+        ]]>
+	</sql>
+
+    <sql id="where">
+        <where>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)">AND ID = #{paramBean.id}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ccode)">AND C_CODE = #{paramBean.ccode}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ckey)">AND C_KEY = #{paramBean.ckey}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cvalue)">AND C_VALUE = #{paramBean.cvalue}</if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cstatus)">AND C_STATUS = #{paramBean.cstatus}
+            </if>
+            <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cdesc)">AND C_DESC = #{paramBean.cdesc}</if>
+        </where>
+    </sql>
+
+    <insert id="insert" keyProperty="id">
+        INSERT INTO sys_datadictionary (
+        <if test="@Ognl@isNotEmpty(id)">ID,</if>
+        <if test="@Ognl@isNotEmpty(ccode)">C_CODE</if>
+        <if test="@Ognl@isNotEmpty(ckey)">,C_KEY</if>
+        <if test="@Ognl@isNotEmpty(cvalue)">,C_VALUE</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,C_STATUS</if>
+        <if test="@Ognl@isNotEmpty(cdesc)">,C_DESC</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(ccode)">#{ccode}</if>
+        <if test="@Ognl@isNotEmpty(ckey)">,#{ckey}</if>
+        <if test="@Ognl@isNotEmpty(cvalue)">,#{cvalue}</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,#{cstatus}</if>
+        <if test="@Ognl@isNotEmpty(cdesc)">,#{cdesc}</if>
+        )
+    </insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_datadictionary (
+        ID,
+        C_CODE
+        ,C_KEY
+        ,C_VALUE
+        ,C_STATUS
+        ,C_DESC
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator=",">
+            (
+            #{entity.id},
+            #{entity.ccode}
+            ,#{entity.ckey}
+            ,#{entity.cvalue}
+            ,#{entity.cstatus}
+            ,#{entity.cdesc}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE sys_datadictionary
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ccode!=null and ccode!=''">
+                C_CODE = #{ccode} ,
+            </if>
+            <if test="ckey!=null and ckey!=''">
+                C_KEY = #{ckey} ,
+            </if>
+            <if test="cvalue!=null and cvalue!=''">
+                C_VALUE = #{cvalue} ,
+            </if>
+            <if test="cstatus!=null and cstatus!=''">
+                C_STATUS = #{cstatus} ,
+            </if>
+            <if test="cdesc!=null and cdesc!=''">
+                C_DESC = #{cdesc} ,
+            </if>
+        </trim>
+        WHERE
+        ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+    <![CDATA[
+
+        DELETE FROM sys_datadictionary WHERE
+        ID = #{id} 
+
+        ]]>
+    </delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM sys_datadictionary WHERE
+        ID IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">#{id}</foreach>
+    </delete>
+
+    <select id="findById" resultMap="RM_SysDatadictionaryVO">
+        SELECT
+        <include refid="columns"></include>
+        <![CDATA[
+		    FROM sys_datadictionary
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+    </select>
+
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_datadictionary
+        <include refid="where"/>
+    </select>
+
+    <select id="findPage" resultMap="RM_SysDatadictionaryVO">
+        SELECT * FROM sys_datadictionary
+        <include refid="where"/>
+        <!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+        <!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+        <!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY
+            <foreach collection="orderBean.orderList" item="item" separator=",">${item.sortField} ${item.sortType}
+            </foreach>
+        </if>
+    </select>
+
+    <sql id="findBySql">
+        SELECT * FROM sys_datadictionary
+        <include refid="where"/>
+    </sql>
+
+    <select id="findBy" resultMap="RM_SysDatadictionaryVO">
+        <include refid="findBySql"/>
+    </select>
+
+    <select id="findUniqueBy" resultMap="RM_SysDatadictionaryVO">
+        <include refid="findBySql"/>
+    </select>
+
+
+</mapper>
+

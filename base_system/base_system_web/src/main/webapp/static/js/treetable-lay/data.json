@@ -1,0 +1,87 @@
+{
+  "msg": "true",
+  "code": 0,
+  "data": [
+    {
+      "permissionId": 1,
+      "permissionName": "系统管理",
+      "permissionUrl": null,
+      "permissionType": null,
+      "icon": null,
+      "pid": 0,
+      "seq": 0,
+      "resType": "0"
+    },
+    {
+      "permissionId": 2,
+      "permissionName": "账户管理",
+      "permissionUrl": "/link/sysUsers",
+      "permissionType": "管理登录的账户",
+      "icon": null,
+      "pid": 1,
+      "seq": 1,
+      "resType": "1"
+    },
+    {
+      "permissionId": 3,
+      "permissionName": "部门管理",
+      "permissionUrl": "/link/deparAdministrate",
+      "permissionType": "部门的管理",
+      "icon": null,
+      "pid": 1,
+      "seq": 2,
+      "resType": "1"
+    },
+    {
+      "permissionId": 4,
+      "permissionName": "角色管理",
+      "permissionUrl": "/link/sysRoleManage",
+      "permissionType": "设定角色的权限",
+      "icon": null,
+      "pid": 1,
+      "seq": 3,
+      "resType": "1"
+    },
+    {
+      "permissionId": 5,
+      "permissionName": "系统管理",
+      "permissionUrl": null,
+      "permissionType": null,
+      "icon": null,
+      "pid": 0,
+      "seq": 1,
+      "resType": "0"
+    },
+    {
+      "permissionId": 6,
+      "permissionName": "账户管理",
+      "permissionUrl": "/link/sysUsers",
+      "permissionType": "管理登录的账户",
+      "icon": null,
+      "pid": 5,
+      "seq": 1,
+      "resType": "1"
+    },
+    {
+      "permissionId": 7,
+      "permissionName": "部门管理",
+      "permissionUrl": "/link/deparAdministrate",
+      "permissionType": "部门的管理",
+      "icon": null,
+      "pid": 5,
+      "seq": 2,
+      "resType": "1"
+    },
+    {
+      "permissionId": 8,
+      "permissionName": "角色管理",
+      "permissionUrl": "/link/sysRoleManage",
+      "permissionType": "设定角色的权限",
+      "icon": null,
+      "pid": 5,
+      "seq": 3,
+      "resType": "1"
+    }
+  ],
+  "count": 6
+}

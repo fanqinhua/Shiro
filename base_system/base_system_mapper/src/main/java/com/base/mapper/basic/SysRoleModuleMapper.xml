@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysRoleModuleMapper" >
+<!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="600"/>
+	    <property name="timeToLiveSeconds" value="3600"/>
+	    <property name="maxEntriesLocalHeap" value="1000"/>
+	    <property name="maxEntriesLocalDisk" value="100000"/>
+	    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+ -->	
+    <resultMap id="RM_SysRoleModule" type="com.base.mapper.model.SysRoleModule">
+        <result property="id" column="ID"/>
+        <result property="iroleId" column="I_ROLE_ID"/>
+        <result property="imoduleId" column="I_MODULE_ID"/>
+        <result property="imoduleSourceId" column="I_MODULE_SOURCE_ID"/>
+	</resultMap>
+	
+	<resultMap id="RM_SysRoleModuleVO" type="com.base.pojo.basic.SysRoleModuleVO" extends="RM_SysRoleModule" >
+	
+	</resultMap>
+	
+	<sql id="columns">
+	    <![CDATA[
+		ID,I_ROLE_ID,I_MODULE_ID,I_MODULE_SOURCE_ID
+	    ]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)"> AND ID = #{paramBean.id} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.iroleId)"> AND I_ROLE_ID = #{paramBean.iroleId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.imoduleId)"> AND I_MODULE_ID = #{paramBean.imoduleId} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.imoduleSourceId)"> AND I_MODULE_SOURCE_ID = #{paramBean.imoduleSourceId} </if>
+	    </where>
+	</sql>
+	
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sys_role_module (
+         <if test="@Ognl@isNotEmpty(id)">ID,</if>
+         <if test="@Ognl@isNotEmpty(iroleId)">I_ROLE_ID</if>
+         <if test="@Ognl@isNotEmpty(imoduleId)">,I_MODULE_ID</if>
+         <if test="@Ognl@isNotEmpty(imoduleSourceId)">,I_MODULE_SOURCE_ID</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(iroleId)">#{iroleId}</if>
+        <if test="@Ognl@isNotEmpty(imoduleId)">,#{imoduleId}</if>
+        <if test="@Ognl@isNotEmpty(imoduleSourceId)">,#{imoduleSourceId}</if>
+        )
+	</insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_role_module (
+            ID,
+            I_ROLE_ID
+            ,I_MODULE_ID
+            ,I_MODULE_SOURCE_ID
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator="," >
+        (
+            #{entity.id},
+            #{entity.iroleId}
+            ,#{entity.imoduleId}
+            ,#{entity.imoduleSourceId}
+        )
+        </foreach>
+    </insert>
+    
+	<update id="update" >
+      UPDATE sys_role_module <trim prefix="SET" suffixOverrides=",">
+        <if test="iroleId != null and iroleId!=''">
+	        I_ROLE_ID = #{iroleId} ,
+        </if>
+        <if test="imoduleId != null and imoduleId!=''">
+	        I_MODULE_ID = #{imoduleId} ,
+        </if>
+        <if test="imoduleSourceId != null and imoduleSourceId!=''">
+	        I_MODULE_SOURCE_ID = #{imoduleSourceId},
+        </if>
+	    </trim>
+        WHERE 
+	        ID = #{id}
+	</update>
+
+    <delete id="deleteById">
+    <![CDATA[
+        DELETE FROM sys_role_module WHERE
+        ID = #{id} 
+    ]]>
+    </delete>
+    
+    <delete id="deleteByIds" >
+        DELETE FROM sys_role_module WHERE 
+        	ID IN 
+        	<foreach collection="ids" item="id" open="(" close=")" separator="," >#{id} </foreach>
+    </delete>
+    
+    <select id="findById" resultMap="RM_SysRoleModuleVO">
+		SELECT <include refid="columns"></include> 
+	    <![CDATA[
+		    FROM sys_role_module
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+	</select>
+	
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_role_module 
+		<include refid="where"/>    
+    </select>
+    
+    <select id="findPage" resultMap="RM_SysRoleModuleVO">
+    	SELECT * FROM sys_role_module 
+		<include refid="where"/>
+		<!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+			<!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+		<!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY <foreach collection="orderBean.orderList" item="item" separator="," >${item.sortField} ${item.sortType}</foreach>
+        </if>
+    </select>
+    
+    <sql id="findBySql">
+    	SELECT * FROM sys_role_module 
+		<include refid="where"/>
+    </sql>
+    
+    <select id="findBy" resultMap="RM_SysRoleModuleVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findUniqueBy" resultMap="RM_SysRoleModuleVO">
+    	<include refid="findBySql"/>
+    </select>
+
+    <select id="findByRoleIdAndMouduleId" resultType="java.lang.Integer">
+        select rm.I_MODULE_SOURCE_ID from sys_role_module rm where rm.I_ROLE_ID = #{roleId} and rm.I_MODULE_ID = #{moduleId}
+    </select>
+
+    <select id="findByRoleIdAndMouduleId2" resultType="java.lang.Integer">
+        select rm.I_MODULE_SOURCE_ID from sys_role_module rm where rm.I_ROLE_ID = #{roleId} and rm.I_MODULE_ID = #{moduleId} and rm.I_MODULE_SOURCE_ID is not null
+    </select>
+
+
+    <delete id="deleteUsrRoleModule">
+        <![CDATA[
+        DELETE FROM sys_role_module WHERE I_ROLE_ID = #{roleId} AND I_MODULE_ID = #{moduleId} AND I_MODULE_SOURCE_ID = #{roleModuleId}
+        ]]>
+    </delete>
+
+</mapper>
+

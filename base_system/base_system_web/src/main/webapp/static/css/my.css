@@ -1,0 +1,695 @@
+.form-control[disabled] {
+    background: #fff !important;
+}
+
+input[readonly] {
+    background: #fff !important;
+}
+
+.tt {
+    position: absolute;
+    bottom: 73px;
+    left: 185px;
+    z-index: 111
+}
+
+.lh-40 {
+    line-height: 40px;
+}
+
+.bg-main {
+    background: #2483c6 !important;
+}
+
+.bg-main:hover {
+    background: #1f71ab !important;
+}
+
+.border-color {
+    border-color: #2483c6 !important;
+}
+
+.mr-20 {
+    margin-right: 20px;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.ml-15 {
+    margin-left: 15px;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
+
+.mr-15 {
+    margin-right: 15px;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.mg-auto {
+    margin: 0 auto;
+}
+
+.pl-15 {
+    padding-left: 15px;
+}
+
+.bordert_no {
+    border-top: none;
+}
+
+.f-l {
+    float: left
+}
+
+.f-r {
+    float: right
+}
+
+.navpd {
+    padding: 5px 10px;
+}
+
+.border-b {
+    border-bottom: 1px solid #ebebeb;
+}
+
+.c-red {
+    color: red;
+}
+
+#bootstrap-duallistbox-nonselected-list_duallistbox_demo2, #bootstrap-duallistbox-selected-list_duallistbox_demo2 {
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#bootstrap-duallistbox-nonselected-list_duallistbox_demo2 option {
+    margin-bottom: 10px;
+}
+
+#bootstrap-duallistbox-selected-list_duallistbox_demo2 option {
+    margin-bottom: 10px;
+}
+
+.trenchList ul {
+    padding-left: 0;
+}
+
+.trenchList ul li {
+    list-style: none;
+    float: left;
+    border-right: 1px solid #fff;
+    width: 100px;
+    text-align: center;
+    padding: 7px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    background: #ffffff;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 10px; /* border-radius: 3px; */
+    border: none;
+    color: #999999;
+}
+
+.trenchList ul li.on {
+    background: #2f4050 !important;
+    color: #a7b1c2;
+}
+
+.trenchList ul li:first-child {
+    border-right: none;
+}
+
+.profit_l {
+    height: 83px;
+    line-height: 83px;
+    border-right: 1px dashed #e7eaec;
+    font-size: 18px;
+    font-weight: bold;
+    color: #676a6c;
+}
+
+.imgw {
+    height: 34px;
+}
+
+.nav > li > a i {
+    width: 12px;
+    text-align: center;
+}
+
+.radius5 {
+    border-radius: 3px;
+}
+
+.f-24 {
+    font-size: 24px;
+}
+
+.f-12 {
+    font-size: 12px;
+}
+
+.f-14 {
+    font-size: 14px !important;
+}
+
+.page-404 {
+    color: #afb5bf;
+}
+
+.va-m {
+    position: relative;
+    top: 23px;
+    font-size: 80px;
+    margin-left: 20px;
+}
+
+.error-info {
+    font-size: 14px;
+}
+
+.ztree li ul:after {
+    clear: both;
+    content: ".";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.ztree li ul {
+    clear: both;
+}
+
+.pw_error {
+    margin-left: 0;
+}
+
+.lh-46 {
+    line-height: 46px;
+}
+
+.lh-34 {
+    line-height: 34px;
+}
+
+.welCon {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.indexBox {
+    box-shadow: 3px 3px 11px #e4e4e4;
+}
+
+.pwd {
+    width: 40px;
+    height: 20px;
+    line-height: 14px;
+    padding-top: 2px;
+}
+
+.pwd_f {
+    color: #BBBBBB;
+}
+
+.pwd_c {
+    background-color: #F3F3F3;
+    border-top: 1px solid #D0D0D0;
+    border-bottom: 1px solid #D0D0D0;
+    border-left: 1px solid #D0D0D0;
+}
+
+.pwd_Weak_c {
+    background-color: #FF4545;
+    border-top: 1px solid #BB2B2B;
+    border-bottom: 1px solid #BB2B2B;
+    border-left: 1px solid #BB2B2B;
+}
+
+.pwd_Medium_c {
+    background-color: #FFD35E;
+    border-top: 1px solid #E9AE10;
+    border-bottom: 1px solid #E9AE10;
+    border-left: 1px solid #E9AE10;
+}
+
+.pwd_Strong_c {
+    background-color: #3ABB1C;
+    border-top: 1px solid #267A12;
+    border-bottom: 1px solid #267A12;
+    border-left: 1px solid #267A12;
+}
+
+.pwd_c_r {
+    border-right: 1px solid #D0D0D0;
+}
+
+.pwd_Weak_c_r {
+    border-right: 1px solid #BB2B2B;
+}
+
+.pwd_Medium_c_r {
+    border-right: 1px solid #E9AE10;
+}
+
+.pwd_Strong_c_r {
+    border-right: 1px solid #267A12;
+}
+
+.pw_ul {
+    float: right;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+.pw_ul li {
+    float: left;
+    list-style: none;
+    margin-right: 2px;
+    color: #fff;
+    font-size: 12px;
+    padding: 0 13px;
+    background: #dbdbdb;
+}
+
+.pw_ul li:first-child {
+    text-align: right;
+    background: none;
+    color: #999;
+    padding: 0 5px;
+}
+
+.sucess_icon {
+    width: 16px;
+    height: 16px;
+    background: #7abd54;
+    border-radius: 50%;
+    display: block;
+    line-height: 16px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    position: absolute;
+    right: -7px;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.navLeft {
+    background: #1c2a35;
+    color: #fff !important;
+}
+
+.w_50 {
+    width: 50%;
+}
+
+.search_c {
+    box-sizing: border-box;
+    padding: 0 15px;
+    margin-left: 25%;
+}
+
+.roleUl {
+    padding-left: 0;
+}
+
+.roleUl li {
+    list-style: none;
+    padding: 10px;
+}
+
+.headerTxt {
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    position: relative;
+    top: 5px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.login_header {
+    line-height: 58px;
+    position: relative;
+    top: 0;
+    height: 68px;
+    /*background-color: #0b0f15;*/
+    padding-left: 50px;
+}
+
+.loginBox {
+    position: absolute;
+    right: 10%;
+    /*left:565px;*/
+    top: 20%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px 30px;
+    width: 380px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.loginBox_title {
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.loginBox_h {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.loginBox .iptbox {
+    margin-top: 9px;
+}
+
+.login_ipt input {
+    width: 100%;
+    height: 42px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    padding-left: 42px;
+    color: #fff;
+}
+
+.login_ipt input::-webkit-input-placeholder {
+    color: #fff;
+}
+
+.login_ipt input::input-placeholder {
+    color: #fff;
+}
+
+.userName input {
+    background: url(../img/ico_user.png) no-repeat left 15px center rgba(255, 255, 255, 0.1);
+}
+
+.passWord input {
+    background: url(../img/ico_password.png) no-repeat left 15px center rgba(255, 255, 255, 0.1);
+}
+.yzm input {
+    background: url(../img/ico_yzm.png) no-repeat left 15px center rgba(255, 255, 255, 0.1);
+}
+
+.loginBtn button {
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    background: #2483c6;
+    border: none;
+    color: #fff;
+    margin-top: 15px;
+    border-radius: 2px;
+}
+
+.login_label {
+    position: relative;
+    left: 4px;
+    top: -2px;
+}
+
+.filing {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+}
+
+.filing p {
+    margin-bottom: 5px;
+}
+
+.verify-bar-area {
+    width: 340px !important;
+}
+
+.addp {
+    margin-left: 25%;
+    margin-top: 5px;
+}
+
+.checkbox_j {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #dbd8d3;
+    cursor: pointer;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.checkbox_j.on {
+    background: url(../img/checked.png) no-repeat center center;
+    border: none;
+}
+
+.h-70 {
+    height: 60px;
+}
+
+.daily ul li {
+    float: left;
+    width: 16.66%;
+    list-style: none;
+}
+
+.daily ul li img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.daily_num {
+    margin-left: 40px;
+}
+
+.f-bold {
+    font-weight: bold;
+}
+
+.uploadBox {
+    border: 1px solid #ccc;
+    height: 180px;
+    background: url(../img/Contact_Add.png) no-repeat center center #ccc
+}
+
+.uploadImg {
+    width: 100%;
+    height: 180px;
+}
+
+/* new */
+.relativeBox {
+    position: relative;
+}
+
+.payBox {
+    position: absolute;
+    right: 60px;
+    top: 20px;
+}
+
+.dol {
+    position: absolute;
+    right: 0;
+    top: 9px;
+}
+
+.pd-no {
+    padding: 0 !important;
+}
+
+.listChooseAll, .chooseList_st {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    right: 5px;
+    top: 3px;
+    cursor: pointer;
+}
+
+.listChooseAll.on, .chooseList_st.on {
+    background: url(../img/choose.png) no-repeat center center;
+    background-size: cover !important;
+    border: none;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.border {
+    border: 1px solid #e5e6e7;
+}
+
+.pd-5 {
+    padding: 5px;
+}
+
+.chooseUl {
+    border: 1px solid #ccc;
+    height: 270px;
+    padding: 12px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.chooseUl li {
+    list-style: none;
+    padding: 5px;
+    margin-bottom: 3px;
+}
+
+.chooseUl li input {
+    background: none !important;
+    border: none;
+    outline: none;
+}
+
+.chooseUl li.on {
+    background: #2483c6;
+    color: #fff;
+}
+
+.chooseUl li.on .help-block {
+    color: #fff;
+}
+
+.chooseyn {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin: 0 5px;
+    position: relative;
+    top: 3px;
+}
+
+.chooseyn.on {
+    background: url(../img/choose.png) no-repeat center center;
+    background-size: cover !important;
+    border: none;
+}
+
+.tree_box {
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+}
+
+.mb_no {
+    margin-bottom: 0px !important;
+}
+
+.ibox-content {
+    padding: 20px !important;
+}
+
+.inputFileWrapper label {
+    display: block;
+    float: left;
+    position: relative;
+}
+
+.inputFileWrapper input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip: rect(0, 0, 0, 0);
+}
+
+.inputFileWrapper .custorm-style {
+    display: block;
+    width: 390px;
+    height: 35px;
+    border: 1px solid #ccc;
+}
+
+.inputFileWrapper .custorm-style .left-button {
+    width: 80px;
+    line-height: 34px;
+    background: #008ac7;
+    color: #fff;
+    display: block;
+    text-align: center;
+    float: left;
+    font-size: 12px;
+}
+
+.inputFileWrapper .custorm-style .right-text {
+    width: 300px;
+    height: 34px;
+    line-height: 29px;
+    display: block;
+    float: right;
+    padding: 4px;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.maxh {
+    max-height: 395px;
+    overflow-y: scroll;
+}
+
+.newline {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.loginBox .admin{
+    width:96px;
+    height:96px;
+    margin:0 auto;
+    margin-bottom:25px;
+}

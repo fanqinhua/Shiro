@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.base.mapper.basic.ISysOrgMapper" >
+<!-- 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="600"/>
+	    <property name="timeToLiveSeconds" value="3600"/>
+	    <property name="maxEntriesLocalHeap" value="1000"/>
+	    <property name="maxEntriesLocalDisk" value="100000"/>
+	    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+ -->	
+    <resultMap id="RM_SysOrg" type="com.base.mapper.model.SysOrg">
+        <result property="id" column="ID"/>
+        <result property="ipid" column="I_PID"/>
+        <result property="ccode" column="C_CODE"/>
+        <result property="cname" column="C_NAME"/>
+        <result property="ctype" column="C_TYPE"/>
+        <result property="cdes" column="C_DES"/>
+        <result property="cstatus" column="C_STATUS"/>
+        <result property="ctel" column="C_TEL"/>
+        <result property="caddress" column="C_ADDRESS"/>
+        <result property="dcreateTime" column="D_CREATE_TIME"/>
+        <result property="cemail" column="C_EMAIL"/>
+        <result property="cperson" column="C_PERSON"/>
+	</resultMap>
+	
+	<resultMap id="RM_SysOrgVO" type="com.base.pojo.basic.SysOrgVO" extends="RM_SysOrg" >
+	
+	</resultMap>
+	
+	<sql id="columns">
+	    <![CDATA[
+		ID,I_PID,C_CODE,C_NAME,C_TYPE,C_DES,C_STATUS,C_TEL,C_ADDRESS,D_CREATE_TIME,C_EMAIL,C_PERSON
+	    ]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.id)"> AND ID = #{paramBean.id} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ipid)"> AND I_PID = #{paramBean.ipid} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ccode)"> AND C_CODE = #{paramBean.ccode} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cname)"> AND C_NAME = #{paramBean.cname} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ctype)"> AND C_TYPE = #{paramBean.ctype} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cdes)"> AND C_DES = #{paramBean.cdes} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cstatus)"> AND C_STATUS = #{paramBean.cstatus} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.ctel)"> AND C_TEL = #{paramBean.ctel} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.caddress)"> AND C_ADDRESS = #{paramBean.caddress} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.dcreateTime)"> AND D_CREATE_TIME = #{paramBean.dcreateTime} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cemail)"> AND C_EMAIL = #{paramBean.cemail} </if>
+	       <if test="paramBean != null and @Ognl@isNotEmpty(paramBean.cperson)"> AND C_PERSON = #{paramBean.cperson} </if>
+	    </where>
+	</sql>
+	
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO sys_org (
+         <if test="@Ognl@isNotEmpty(id)">ID,</if>
+         <if test="@Ognl@isNotEmpty(ipid)">I_PID</if>
+         <if test="@Ognl@isNotEmpty(ccode)">,C_CODE</if>
+         <if test="@Ognl@isNotEmpty(cname)">,C_NAME</if>
+         <if test="@Ognl@isNotEmpty(ctype)">,C_TYPE</if>
+         <if test="@Ognl@isNotEmpty(cdes)">,C_DES</if>
+         <if test="@Ognl@isNotEmpty(cstatus)">,C_STATUS</if>
+         <if test="@Ognl@isNotEmpty(ctel)">,C_TEL</if>
+         <if test="@Ognl@isNotEmpty(caddress)">,C_ADDRESS</if>
+         <if test="@Ognl@isNotEmpty(dcreateTime)">,D_CREATE_TIME</if>
+         <if test="@Ognl@isNotEmpty(cemail)">,C_EMAIL</if>
+         <if test="@Ognl@isNotEmpty(cperson)">,C_PERSON</if>
+        ) VALUES (
+        <if test="@Ognl@isNotEmpty(id)">#{id},</if>
+        <if test="@Ognl@isNotEmpty(ipid)">#{ipid}</if>
+        <if test="@Ognl@isNotEmpty(ccode)">,#{ccode}</if>
+        <if test="@Ognl@isNotEmpty(cname)">,#{cname}</if>
+        <if test="@Ognl@isNotEmpty(ctype)">,#{ctype}</if>
+        <if test="@Ognl@isNotEmpty(cdes)">,#{cdes}</if>
+        <if test="@Ognl@isNotEmpty(cstatus)">,#{cstatus}</if>
+        <if test="@Ognl@isNotEmpty(ctel)">,#{ctel}</if>
+        <if test="@Ognl@isNotEmpty(caddress)">,#{caddress}</if>
+        <if test="@Ognl@isNotEmpty(dcreateTime)">,#{dcreateTime}</if>
+        <if test="@Ognl@isNotEmpty(cemail)">,#{cemail}</if>
+        <if test="@Ognl@isNotEmpty(cperson)">,#{cperson}</if>
+        )
+	</insert>
+
+    <insert id="batchInsert" keyProperty="id">
+        INSERT INTO sys_org (
+            ID,
+            I_PID
+            ,C_CODE
+            ,C_NAME
+            ,C_TYPE
+            ,C_DES
+            ,C_STATUS
+            ,C_TEL
+            ,C_ADDRESS
+            ,D_CREATE_TIME
+            ,C_EMAIL
+            ,C_PERSON
+        ) VALUES
+        <foreach collection="entities" item="entity" index="index" separator="," >
+        (
+            #{entity.id},
+            #{entity.ipid}
+            ,#{entity.ccode}
+            ,#{entity.cname}
+            ,#{entity.ctype}
+            ,#{entity.cdes}
+            ,#{entity.cstatus}
+            ,#{entity.ctel}
+            ,#{entity.caddress}
+            ,#{entity.dcreateTime}
+            ,#{entity.cemail}
+            ,#{entity.cperson}
+        )
+        </foreach>
+    </insert>
+    
+	<update id="update" >
+    UPDATE sys_org <trim prefix="SET" suffixOverrides=",">
+        <if test="ipid != null and ipid!=''">
+	        I_PID = #{ipid} ,
+        </if>
+        <if test="ccode != null and ccode!=''">
+	        C_CODE = #{ccode} ,
+        </if>
+        <if test="cname != null and cname!=''">
+	        C_NAME = #{cname} ,
+        </if>
+        <if test="ctype != null and ctype!=''">
+	        C_TYPE = #{ctype} ,
+        </if>
+        <if test="cdes != null and cdes!=''">
+	        C_DES = #{cdes} ,
+        </if>
+        <if test="cstatus != null and cstatus!=''">
+	        C_STATUS = #{cstatus} ,
+        </if>
+        <if test="ctel != null and ctel!=''">
+	        C_TEL = #{ctel} ,
+        </if>
+        <if test="caddress != null and caddress!=''">
+	        C_ADDRESS = #{caddress} ,
+        </if>
+        <if test="dcreateTime != null and dcreateTime!=''">
+	        D_CREATE_TIME = #{dcreateTime} ,
+        </if>
+        <if test="cemail != null and cemail!=''">
+	        C_EMAIL = #{cemail} ,
+        </if>
+        <if test="cperson != null and cperson!=''">
+	        C_PERSON = #{cperson} ,
+        </if>
+    </trim>
+        WHERE 
+	        ID = #{id}
+	</update>
+
+    <delete id="deleteById">
+    <![CDATA[
+        DELETE FROM sys_org WHERE
+        ID = #{id} 
+    ]]>
+    </delete>
+    
+    <delete id="deleteByIds" >
+        DELETE FROM sys_org WHERE 
+        	ID IN 
+        	<foreach collection="ids" item="id" open="(" close=")" separator="," >#{id} </foreach>
+    </delete>
+    
+    <select id="findById" resultMap="RM_SysOrgVO">
+		SELECT <include refid="columns"></include> 
+	    <![CDATA[
+		    FROM sys_org
+	        WHERE 
+		        ID = #{id} 
+	    ]]>
+	</select>
+	
+    <select id="findPageCount" resultType="long">
+        SELECT count(*) FROM sys_org 
+		<include refid="where"/>    
+    </select>
+    
+    <select id="findPage" resultMap="RM_SysOrgVO">
+    	SELECT * FROM sys_org 
+		<include refid="where"/>
+		<!--<if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderBy)">-->
+			<!--ORDER BY ${orderBean.orderBy} ${orderBean.order}-->
+		<!--</if>-->
+        <if test="orderBean != null and @Ognl@isNotEmpty(orderBean.orderList)">
+            ORDER BY <foreach collection="orderBean.orderList" item="item" separator="," >${item.sortField} ${item.sortType}</foreach>
+        </if>
+    </select>
+    
+    <sql id="findBySql">
+    	SELECT * FROM sys_org 
+		<include refid="where"/>
+    </sql>
+    
+    <select id="findBy" resultMap="RM_SysOrgVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+    <select id="findUniqueBy" resultMap="RM_SysOrgVO">
+    	<include refid="findBySql"/>
+    </select>
+    
+	
+</mapper>
+
