@@ -35,7 +35,7 @@
         <jedis.version>2.9.0</jedis.version>
         <apache-commons-pool2>2.4.2</apache-commons-pool2>
         <curator.version>4.0.0</curator.version>
-        <shiro.version>1.2.1</shiro.version>
+        <shiro.version>1.6.0</shiro.version>
         <springside.version>4.0.0.RC3</springside.version>
         <rmt.version>5.3-SNAPSHOT</rmt.version>
         <jackson-core-version>1.9.13</jackson-core-version>
